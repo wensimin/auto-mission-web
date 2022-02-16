@@ -1,6 +1,54 @@
-<mat-toolbar color="primary">
-  <button mat-button class="app-menu-button" >
-    <i class="material-icons">menu</i>
-  </button>
-  <span class="title">自动任务管理</span>
-</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="app-sidenav">
+    <mat-toolbar *ngIf="isAuthed">
+      <mat-toolbar-row>
+        <span>{{username}}</span>
+        <span class="app-toolbar-filler"></span>
+        <mat-icon class="example-icon">account_circle</mat-icon>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-raised-button color="warn" class="app-sidebar-button" (click)="logout()">
+          <mat-icon class="example-icon">delete</mat-icon>
+          注销
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-toolbar *ngIf="!isAuthed">
+      <mat-toolbar-row>
+        <span>未登录</span>
+        <span class="app-toolbar-filler"></span>
+        <mat-icon class="example-icon">account_circle</mat-icon>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <button mat-raised-button color="accent" class="app-sidebar-button" (click)="login()">
+          <mat-icon class="example-icon">login</mat-icon>
+          登录
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-card class="mat-list-item" >
+      <button mat-button routerLink="task">任务列表</button>
+    </mat-card>
+    <mat-card class="mat-list-item">
+      <button mat-button routerLink="log"> 日志记录
+      </button>
+    </mat-card>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
+      <i class="material-icons">menu</i>
+    </button>
+    <span class="title">自动任务管理</span>
+  </mat-toolbar>
+
+
+  <div class="app-content">
+    <router-outlet>
+
+    </router-outlet>
+  </div>
+
+</mat-sidenav-container>
+
