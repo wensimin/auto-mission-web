@@ -13,6 +13,7 @@ import {MatCardModule} from "@angular/material/card";
 import {TaskComponent} from './task/task.component';
 import {LogComponent} from './log/log.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -33,9 +34,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       {path: '', redirectTo: '/task', pathMatch: 'full'},
       {path: "task", component: TaskComponent},
       {path: "log", component: LogComponent},
-      { path: '**', component: PageNotFoundComponent }
+      {path: '**', component: PageNotFoundComponent}
     ]),
-    MatCardModule
+    MatCardModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
