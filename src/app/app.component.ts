@@ -12,9 +12,17 @@ export class AppComponent {
   username?
 
   constructor(private oauthService: OAuthService) {
-    oauthService.setupAutomaticSilentRefresh()
+    oauthService.setupAutomaticSilentRefresh({}, "access_token")
     // @ts-ignore
     this.username = this.isAuthed ? this.oauthService.getIdentityClaims().sub : null
+    // if (!oauthService.hasValidAccessToken()) oauthService.refreshToken().then(r => {
+    //   console.log(r)
+    // })
+    // if (this.isAuthed) {
+    //   oauthService.loadUserProfile().then(r => {
+    //     console.log("user info:" + r)
+    //   })
+    // }
     console.log(oauthService.getAccessToken())
     console.log(oauthService.hasValidAccessToken())
   }
@@ -24,6 +32,6 @@ export class AppComponent {
   }
 
   logout() {
-    this.oauthService.revokeTokenAndLogout().then(()=>window.location.reload())
+    this.oauthService.revokeTokenAndLogout().then(() => this.isAuthed = this.oauthService.hasValidAccessToken())
   }
 }

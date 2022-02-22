@@ -1,25 +1,25 @@
 import {AuthConfig, OAuthModuleConfig, OAuthService, OAuthStorage} from 'angular-oauth2-oidc';
-//TODO by BUILD ENV
-const domain = 'https://boliboli.xyz:3000'
-// const domain = 'http://localhost:81'
-export const authSever = domain + '/authorization'
+import {environment} from "../../environments/environment";
+
 
 export const authConfig: AuthConfig = {
-  issuer: authSever,
+  issuer: environment.authSever,
   clientId: 'testId', // The "Auth Code + PKCE" client
   responseType: 'code',
   redirectUri: window.location.origin + '/',
   dummyClientSecret: 'testSecret',
   scope: 'openid', // Ask offline_access to support refresh token refreshes
   useHttpBasicAuth: true,
-  revocationEndpoint: authSever + '/oauth2/revoke',
+  revocationEndpoint: environment.authSever + '/oauth2/revoke',
   showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
   requireHttps: false,
+  userinfoEndpoint: environment.authSever + "/userinfo",
+  timeoutFactor: 0.9
 };
 
 export const authModuleConfig: OAuthModuleConfig = {
   resourceServer: {
-    allowedUrls: [domain + '/message-rs'],
+    allowedUrls: [environment.resourceServer],
     sendAccessToken: true,
   },
 };
@@ -28,6 +28,6 @@ export function storageFactory(): OAuthStorage {
   return localStorage;
 }
 
-export function authAppInitializerFactory(authService: OAuthService) {
-  return () => authService.loadDiscoveryDocumentAndTryLogin()
+export function authAppInitializerFactory(oAuthService: OAuthService) {
+  return () => oAuthService.loadDiscoveryDocumentAndTryLogin()
 }
