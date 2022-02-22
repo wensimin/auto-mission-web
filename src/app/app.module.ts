@@ -14,14 +14,13 @@ import {TaskComponent} from './task/task.component';
 import {LogComponent} from './log/log.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatRippleModule} from "@angular/material/core";
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TaskComponent,
-    LogComponent,
-    PageNotFoundComponent
-  ],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,7 +36,17 @@ import {MatRippleModule} from "@angular/material/core";
       {path: '**', component: PageNotFoundComponent}
     ]),
     MatCardModule,
-    MatRippleModule
+    MatRippleModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
+  ],
+  declarations: [
+    AppComponent,
+    TaskComponent,
+    LogComponent,
+    PageNotFoundComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
