@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/purple-green.css";
-
+@use '@angular/material' as mat;
+@import "src/app/theme-definition";
 
 html, body {
   height: 100%;
@@ -11,6 +11,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.table {
+table {
   width: 100%;
+}
+
+// 设置snack-bar背景
+.snack-bar {
+  background: mat.get-color-from-palette($background, app-bar) !important;
 }
