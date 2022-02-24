@@ -8,23 +8,17 @@ import {OAuthService} from "angular-oauth2-oidc";
 })
 export class AppComponent {
 
-  isAuthed = this.oauthService.hasValidAccessToken()
-  username?
+  isAuthed = false
+  username = null
 
   constructor(private oauthService: OAuthService) {
-    oauthService.setupAutomaticSilentRefresh({}, "access_token")
+    this.loadAuth()
+  }
+
+  private loadAuth() {
+    this.isAuthed = this.oauthService.hasValidAccessToken()
     // @ts-ignore
     this.username = this.isAuthed ? this.oauthService.getIdentityClaims().sub : null
-    // if (!oauthService.hasValidAccessToken()) oauthService.refreshToken().then(r => {
-    //   console.log(r)
-    // })
-    // if (this.isAuthed) {
-    //   oauthService.loadUserProfile().then(r => {
-    //     console.log("user info:" + r)
-    //   })
-    // }
-    console.log(oauthService.getAccessToken())
-    console.log(oauthService.hasValidAccessToken())
   }
 
   login() {

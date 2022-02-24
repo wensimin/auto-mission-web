@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -36,7 +36,10 @@ import {
 } from "@angular/material-moment-adapter";
 import 'moment/locale/ja';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import {SnackBarComponent} from './snack-bar/snack-bar.component';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpErrorInterceptor} from "./service/http-error-interceptor";
+import {InitServiceService} from "./service/init-service.service";
 
 @NgModule({
 
@@ -85,6 +88,21 @@ import { SnackBarComponent } from './snack-bar/snack-bar.component';
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    // 全局错误拦截器
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    InitServiceService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (init: InitServiceService) => () => {
+        return init.load()
+      },
+      deps: [InitServiceService],
+      multi: true
+    }
   ],
 
   bootstrap: [AppComponent]

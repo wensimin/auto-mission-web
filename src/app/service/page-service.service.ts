@@ -5,14 +5,12 @@ import {FormGroup} from "@angular/forms";
 import {catchError, debounceTime, distinctUntilChanged, merge, of, startWith, switchMap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PageServiceService {
-  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient) {
   }
 
 
@@ -39,13 +37,8 @@ export class PageServiceService {
           let value = this.toPageParam(paginator, sort, queryForm.value);
           return this.httpClient.get<Page<T>>(`${environment.resourceServer}/${endpoint}`, {
             params: value
-            //全局error处理
+            //page error处理
           }).pipe(catchError(() => {
-              this.snackBar.openFromComponent(SnackBarComponent, {
-                duration: 5 * 1000,
-                panelClass: ['snack-bar'],
-                data: {type: "error", message: "请求发生未知错误"}
-              })
               return of({"totalElements": 0, "content": []})
             }
           ));

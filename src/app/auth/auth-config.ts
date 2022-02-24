@@ -11,6 +11,7 @@ export const authConfig: AuthConfig = {
   scope: 'openid', // Ask offline_access to support refresh token refreshes
   useHttpBasicAuth: true,
   revocationEndpoint: environment.authSever + '/oauth2/revoke',
+  tokenEndpoint: environment.authSever + '/oauth2/token',
   showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
   requireHttps: false,
   userinfoEndpoint: environment.authSever + "/userinfo",
