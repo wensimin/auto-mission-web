@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+@import "../theme-definition";
+
+.error {
+  color: mat.get-color-from-palette($warn);
+}
+
+.success {
+  color: mat.get-color-from-palette($accent);
+}
+
+.info {
+  color: mat.get-color-from-palette($primary);
+}
