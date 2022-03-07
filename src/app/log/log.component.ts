@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
 import {PageServiceService} from "../service/page-service.service";
 
 @Component({
@@ -18,7 +16,6 @@ export class LogComponent implements AfterViewInit {
   displayedColumns: string[] = ['label', 'text', 'createDate', 'action'];
   resultsLength: number = 0;
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   queryForm = this.fb.group({
@@ -31,9 +28,7 @@ export class LogComponent implements AfterViewInit {
 
 
   constructor(
-    private httpClient: HttpClient,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private pageService: PageServiceService
   ) {
   }

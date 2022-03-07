@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  authSever : 'https://boliboli.xyz:3000/authorization',
+  authSever : 'https://shali.fun:3000/authorization',
 // export const authSever = 'http://auth-server:9000'
   resourceServer :'http://127.0.0.1:8080/auto-mission'
   // export const authSever = 'http://127.0.0.1:81/authorization'

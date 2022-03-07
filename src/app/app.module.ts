@@ -40,36 +40,38 @@ import {SnackBarComponent} from './snack-bar/snack-bar.component';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./service/http-error-interceptor";
 import {InitServiceService} from "./service/init-service.service";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
 
-  imports: [
-    RouterModule.forRoot([
-      {path: '', redirectTo: '/task', pathMatch: 'full'},
-      {path: "task", component: TaskComponent},
-      {path: "log", component: LogComponent},
-      {path: '**', component: PageNotFoundComponent}
-    ]),
-    AuthModule.forRoot(),
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatCardModule,
-    MatRippleModule,
-    MatListModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-  ],
+    imports: [
+        RouterModule.forRoot([
+            {path: '', redirectTo: '/task', pathMatch: 'full'},
+            {path: "task", component: TaskComponent},
+            {path: "log", component: LogComponent},
+            {path: '**', component: PageNotFoundComponent}
+        ]),
+        AuthModule.forRoot(),
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatCardModule,
+        MatRippleModule,
+        MatListModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatSelectModule,
+    ],
   declarations: [
     AppComponent,
     TaskComponent,

@@ -34,25 +34,21 @@
 
 <table mat-table [dataSource]="logs" class="mat-elevation-z8"
        matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
-  <!-- Position Column -->
   <ng-container matColumnDef="label">
     <th mat-header-cell *matHeaderCellDef> 标签</th>
     <td mat-cell *matCellDef="let element"> {{element.label}} </td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="text">
     <th mat-header-cell *matHeaderCellDef> 日志</th>
     <td mat-cell *matCellDef="let element"> {{element.text}} </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="createDate">
     <th mat-header-cell *matHeaderCellDef mat-sort-header="" disableClear> 日期</th>
     <td mat-cell *matCellDef="let element"> {{element["createDate"]}} </td>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> 操作</th>
     <td mat-cell *matCellDef="let element"> {{element["taskId"]}} </td>
