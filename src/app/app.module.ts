@@ -27,7 +27,7 @@ import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator"
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChinesePaginatorIntl} from "./bean/ChineseMatPaginatorIntl";
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -41,43 +41,51 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpErrorInterceptor} from "./service/http-error-interceptor";
 import {InitServiceService} from "./service/init-service.service";
 import {MatSelectModule} from "@angular/material/select";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
+import { TaskInfoComponent } from './task-info/task-info.component';
 
 @NgModule({
-
-    imports: [
-        RouterModule.forRoot([
-            {path: '', redirectTo: '/task', pathMatch: 'full'},
-            {path: "task", component: TaskComponent},
-            {path: "log", component: LogComponent},
-            {path: '**', component: PageNotFoundComponent}
-        ]),
-        AuthModule.forRoot(),
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatCardModule,
-        MatRippleModule,
-        MatListModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatSnackBarModule,
-        MatSelectModule,
-    ],
+  imports: [
+    RouterModule.forRoot([
+      {path: '', redirectTo: '/task', pathMatch: 'full'},
+      {path: "task", component: TaskComponent},
+      {path: "task/new", component: TaskInfoComponent},
+      {path: "task/:id", component: TaskInfoComponent},
+      {path: "log", component: LogComponent},
+      {path: '**', component: PageNotFoundComponent}
+    ]),
+    AuthModule.forRoot(),
+    MonacoEditorModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatRippleModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    ClipboardModule,
+    FormsModule,
+  ],
   declarations: [
     AppComponent,
     TaskComponent,
     LogComponent,
     PageNotFoundComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    TaskInfoComponent
   ],
   providers: [
     // 分页器chinese

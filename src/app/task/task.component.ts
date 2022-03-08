@@ -13,7 +13,7 @@ export class TaskComponent implements AfterViewInit {
 
 
   tasks: Task[] = []
-  displayedColumns: string[] = ['name', 'cronExpression', 'enabled', 'createDate', 'updateDate', 'action'];
+  displayedColumns: string[] = ['name', 'enabled', 'createDate', 'updateDate', 'action'];
   resultsLength: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
