@@ -8,14 +8,14 @@ import {
   HttpStatusCode
 } from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
-import {SnackBarComponent} from "../snack-bar/snack-bar.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackBarServiceService} from "./snack-bar-service.service";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(
+    private snackBarServiceService: SnackBarServiceService) {
   }
 
   intercept(
@@ -35,12 +35,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           case HttpStatusCode.Forbidden:
             message = "权限不足,无法访问"
             break
+          case HttpStatusCode.NotFound:
+            message = "未找到对应资源"
         }
-        this.snackBar.openFromComponent(SnackBarComponent, {
-          duration: 5 * 1000,
-          panelClass: ['snack-bar'],
-          data: {type: "error", message: message}
-        })
+        this.snackBarServiceService.message({type: "error", message: message})
         // 传递到下级
         return throwError(() => error);
       })

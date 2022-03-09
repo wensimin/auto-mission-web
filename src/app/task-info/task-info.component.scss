@@ -1,0 +1,26 @@
+mat-form-field {
+  display: block;
+  line-height: 1.6;
+
+  textarea {
+    height: 100px;
+  }
+}
+
+form {
+  margin: 20px;
+}
+
+.editor-container {
+  height: 500px;
+}
+
+.action-button {
+  padding: 50px 20px 20px;
+  display: flex;
+  button {
+    flex: 1;
+    margin: 10px;
+  }
+
+}

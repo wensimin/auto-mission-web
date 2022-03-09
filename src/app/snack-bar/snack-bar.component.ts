@@ -20,7 +20,7 @@ export class SnackBarComponent implements OnInit {
 
 }
 
-interface SnackBarConfig {
+export interface SnackBarConfig {
   type: "error" | "info" | "success",
   message: String
 }

@@ -44,6 +44,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import { TaskInfoComponent } from './task-info/task-info.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   imports: [
@@ -78,6 +80,8 @@ import { TaskInfoComponent } from './task-info/task-info.component';
     MatSelectModule,
     ClipboardModule,
     FormsModule,
+    MatRadioModule,
+    MatSlideToggleModule,
   ],
   declarations: [
     AppComponent,
