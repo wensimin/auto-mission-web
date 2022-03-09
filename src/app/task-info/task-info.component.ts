@@ -6,6 +6,8 @@ import {Task} from "../model/Models";
 import {environment} from "../../environments/environment";
 import {catchError, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
+import {MatDialog} from "@angular/material/dialog";
+import {TestCodeDialogComponent} from "../test-code-dialog/test-code-dialog.component";
 
 @Component({
   selector: 'app-task-info',
@@ -22,7 +24,8 @@ export class TaskInfoComponent implements AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private httpClient: HttpClient,
-    private snackBarServiceService: SnackBarServiceService
+    private snackBarServiceService: SnackBarServiceService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -51,5 +54,17 @@ export class TaskInfoComponent implements AfterViewInit {
           this.router.navigate(['/task']).then()
         }
       )
+  }
+
+  testCode() {
+
+    this.httpClient.post<String>(`${environment.resourceServer}/task/testCode`, {"code": this.taskForm.value.code},
+      // @ts-ignore text不识别
+      {responseType: 'text'})
+      .subscribe(res => {
+        this.dialog.open(TestCodeDialogComponent, {
+          data: res
+        })
+      })
   }
 }

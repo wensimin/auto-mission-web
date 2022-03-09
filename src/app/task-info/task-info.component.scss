@@ -13,11 +13,24 @@ form {
 
 .editor-container {
   height: 500px;
+
+  div {
+    margin: 20px 0 20px 0;
+    h1 {
+      display: inline;
+    }
+
+    button {
+      float: right;
+    }
+  }
+
 }
 
 .action-button {
   padding: 50px 20px 20px;
   display: flex;
+
   button {
     flex: 1;
     margin: 10px;

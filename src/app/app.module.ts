@@ -46,6 +46,8 @@ import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import { TaskInfoComponent } from './task-info/task-info.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { TestCodeDialogComponent } from './test-code-dialog/test-code-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   imports: [
@@ -82,6 +84,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     FormsModule,
     MatRadioModule,
     MatSlideToggleModule,
+    MatDialogModule,
   ],
   declarations: [
     AppComponent,
@@ -89,7 +92,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     LogComponent,
     PageNotFoundComponent,
     SnackBarComponent,
-    TaskInfoComponent
+    TaskInfoComponent,
+    TestCodeDialogComponent
   ],
   providers: [
     // 分页器chinese

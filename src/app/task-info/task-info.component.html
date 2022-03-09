@@ -5,11 +5,11 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>描述</mat-label>
-    <textarea matInput formControlName="description" ></textarea>
+    <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>cron表达式</mat-label>
-    <input matInput formControlName="cronExpression" >
+    <input matInput formControlName="cronExpression">
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>间隔时间(ms)</mat-label>
@@ -18,7 +18,12 @@
   <mat-slide-toggle formControlName="async">并发执行任务</mat-slide-toggle>
 
   <div class="editor-container">
-    <H1>执行代码</H1>
+    <div>
+      <H1>执行代码</H1>
+      <button mat-raised-button color="accent" (click)="testCode()">
+        试运行
+      </button>
+    </div>
     <ngx-monaco-editor [options]="editorOptions" formControlName="code"></ngx-monaco-editor>
   </div>
 </form>
