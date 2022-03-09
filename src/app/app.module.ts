@@ -48,6 +48,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { TestCodeDialogComponent } from './test-code-dialog/test-code-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     PageNotFoundComponent,
     SnackBarComponent,
     TaskInfoComponent,
-    TestCodeDialogComponent
+    TestCodeDialogComponent,
+    DeleteTaskDialogComponent
   ],
   providers: [
     // 分页器chinese

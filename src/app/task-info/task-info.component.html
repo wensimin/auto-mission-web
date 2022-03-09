@@ -2,18 +2,25 @@
   <mat-form-field appearance="outline">
     <mat-label>任务名</mat-label>
     <input matInput formControlName="name">
+    <mat-error *ngIf="f['name'].errors?.['required']">任务名不能为空</mat-error>
+    <mat-error *ngIf="f['name'].errors?.['maxlength']">最大长度限制为255</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>描述</mat-label>
     <textarea matInput formControlName="description"></textarea>
+    <mat-error *ngIf="f['description'].invalid">描述不能为空</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" >
     <mat-label>cron表达式</mat-label>
-    <input matInput formControlName="cronExpression">
+    <input matInput formControlName="cronExpression" [errorStateMatcher]="cronError">
+    <mat-error *ngIf="taskForm.errors?.['cronInvalid']">cron表达式格式错误</mat-error>
+    <mat-error *ngIf="taskForm.errors?.['runRequired']">运行方式不能全部为空</mat-error>
+
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>间隔时间(ms)</mat-label>
-    <input matInput formControlName="interval">
+    <input type="number" matInput formControlName="interval" [errorStateMatcher]="intervalError">
+    <mat-error *ngIf="taskForm.errors?.['runRequired']">运行方式不能全部为空</mat-error>
   </mat-form-field>
   <mat-slide-toggle formControlName="async">并发执行任务</mat-slide-toggle>
 
@@ -25,15 +32,22 @@
       </button>
     </div>
     <ngx-monaco-editor [options]="editorOptions" formControlName="code"></ngx-monaco-editor>
+    <mat-error *ngIf="f['code'].invalid">执行代码不能为空</mat-error>
   </div>
 </form>
 <div class="action-button">
   <button mat-raised-button color="accent" (click)="saveTask()">
-    保存
+    保存待启动
   </button>
   <button mat-raised-button color="warn" routerLink="/task">
     取消
   </button>
 </div>
+<div class="delete-button" *ngIf="id">
+  <button mat-raised-button color="warn" (click)="deleteTask()">
+    停止且销毁任务
+  </button>
+</div>
+
 
 

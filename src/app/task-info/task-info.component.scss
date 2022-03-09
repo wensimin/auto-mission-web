@@ -1,12 +1,14 @@
 mat-form-field {
   display: block;
   line-height: 1.6;
-
+  margin: 20px;
   textarea {
     height: 100px;
   }
 }
-
+mat-error{
+  padding-top: 5px;
+}
 form {
   margin: 20px;
 }
@@ -16,6 +18,7 @@ form {
 
   div {
     margin: 20px 0 20px 0;
+
     h1 {
       display: inline;
     }
@@ -36,4 +39,13 @@ form {
     margin: 10px;
   }
 
+}
+
+.delete-button {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  button {
+    width: 60%;
+  }
 }

@@ -1,5 +1,5 @@
 .mat-column-label {
-  width: 32px;
+  width: 5%;
   border-right: 1px solid currentColor;
   padding-right: 15px;
   text-align: center;
@@ -8,7 +8,8 @@
 .mat-column-text {
   padding-left: 16px;
   padding-right: 16px;
-
+  //似乎能起到 限制宽的效果
+  max-width: 0;
   p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -20,12 +21,13 @@
 .mat-column-createDate {
   border-left: 1px solid currentColor;
   padding-left: 15px;
-  width: 150px;
+  width: 10%;
   font-style: italic;
 }
 
 .mat-column-action {
-  width: 32px;
+  border-left: 1px solid currentColor;
+  width: 5%;
   text-align: center;
 }
 

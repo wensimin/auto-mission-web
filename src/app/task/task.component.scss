@@ -2,11 +2,32 @@ mat-form-field {
   padding: 5px;
   line-height: 1.4
 }
+.mat-column-createDate{
+  width: 10%;
+}
 
+.mat-column-updateDate{
+  width: 10%;
+}
+.mat-column-enabled{
+  padding-left: 16px;
+  width: 10%;
+}
+.mat-column-name{
+  max-width: 0;
+  overflow:hidden;
+  border-right: 1px solid currentColor;
+  margin-right: 15px;
+}
 .mat-column-action {
   text-align: center;
-
+  width: 10%;
   button {
     margin: 10px;
   }
+}
+.new-task-button{
+  float: right;
+  margin-top: 25px;
+  margin-right: 5px;
 }
