@@ -12,7 +12,7 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {Task} from "../model/Models";
 import {environment} from "../../environments/environment";
-import {catchError, of} from "rxjs";
+import {catchError, finalize, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TestCodeDialogComponent} from "../test-code-dialog/test-code-dialog.component";
@@ -31,6 +31,8 @@ export class TaskInfoComponent implements AfterViewInit {
   id: String | undefined
   //short ref
   f = this.taskForm.controls
+  //TODO 组件化
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -60,7 +62,6 @@ export class TaskInfoComponent implements AfterViewInit {
     for (let fKey in this.f) {
       this.f[fKey].markAsTouched()
     }
-    console.log(this.taskForm.errors)
     if (this.taskForm.invalid) return
     this.httpClient.post(`${environment.resourceServer}/task`, this.taskForm.value)
       .subscribe(() => {
@@ -71,8 +72,12 @@ export class TaskInfoComponent implements AfterViewInit {
   }
 
   testCode() {
+    this.loading = true
     this.httpClient.post(`${environment.resourceServer}/task/testCode`, {"code": this.taskForm.value.code},
-      {responseType: 'text'})
+      {responseType: 'text'}).pipe(
+      finalize(() => {
+        this.loading = false
+      }))
       .subscribe(res => {
         this.dialog.open(TestCodeDialogComponent, {
           data: res
@@ -119,6 +124,9 @@ export class TaskInfoComponent implements AfterViewInit {
     })
   }
 
+  /**
+   * 指定项设置 验证
+   */
   private setValidators() {
     this.taskForm.setControl("name", new FormControl(null, [Validators.required, Validators.maxLength(255)]))
     this.taskForm.setControl("code", new FormControl(null, [Validators.required]))
@@ -130,7 +138,14 @@ export class TaskInfoComponent implements AfterViewInit {
   cronError = new HasErrorMatcher(['runRequired', 'cronInvalid'])
   intervalError = new HasErrorMatcher(['runRequired'])
 
+
+  /**
+   * 运行方式的验证，不允许间隔和cron均为空
+   * 在cron有值的情况下验证cron表达式
+   *
+   */
   runnableValidation(control: AbstractControl): ValidationErrors | null {
+    //TODO 目前和后端的验证并不完全匹配 待修改
     let cronRegex = new RegExp("(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\\d+(ns|us|µs|ms|s|m|h))+)|((((\\d+,)+\\d+|(\\d+([/\\-])\\d+)|\\d+|\\*) ?){6,7})")
 
     const cron: string = control.get("cronExpression")?.value;

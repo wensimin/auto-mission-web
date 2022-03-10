@@ -49,6 +49,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { TestCodeDialogComponent } from './test-code-dialog/test-code-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dial
     MatRadioModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     AppComponent,
