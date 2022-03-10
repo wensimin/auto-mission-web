@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {Task} from "../model/Models";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {environment} from "../../environments/environment";
+import {LoadingService} from "../service/loading.service";
 
 @Component({
   selector: 'app-task',
@@ -28,10 +29,12 @@ export class TaskComponent implements AfterViewInit {
     enabled: [null]
   })
 
-  constructor(private fb: FormBuilder,
-              private pageService: PageServiceService,
-              private httpClient: HttpClient,
-              private snackBarServiceService: SnackBarServiceService
+  constructor(
+    private fb: FormBuilder,
+    private pageService: PageServiceService,
+    private httpClient: HttpClient,
+    private snackBarServiceService: SnackBarServiceService,
+    private loadingService: LoadingService
   ) {
   }
 
@@ -47,7 +50,9 @@ export class TaskComponent implements AfterViewInit {
 
   switchTask(task: Task) {
     this.httpClient.put(`${environment.resourceServer}/task/${task.id}`, {},
-      {params: {"enabled": !task.enabled}}).subscribe(() => {
+      {params: {"enabled": !task.enabled}})
+      .pipe(this.loadingService.setLoading())
+      .subscribe(() => {
         this.snackBarServiceService.message({type: "success", message: "更改任务状态成功"})
         task.enabled = !task.enabled
       }

@@ -4,10 +4,10 @@ import {environment} from "../../environments/environment";
 
 export const authConfig: AuthConfig = {
   issuer: environment.authSever,
-  clientId: 'testId', // The "Auth Code + PKCE" client
+  clientId: 'auto-mission', // The "Auth Code + PKCE" client
   responseType: 'code',
-  redirectUri: window.location.origin + '/',
-  dummyClientSecret: 'testSecret',
+  redirectUri: window.location.origin + environment.baseHref,
+  dummyClientSecret: '753951anna',
   scope: 'openid', // Ask offline_access to support refresh token refreshes
   useHttpBasicAuth: true,
   revocationEndpoint: environment.authSever + '/oauth2/revoke',
