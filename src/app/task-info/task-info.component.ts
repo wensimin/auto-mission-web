@@ -12,12 +12,13 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {Task} from "../model/Models";
 import {environment} from "../../environments/environment";
-import {catchError, finalize, of} from "rxjs";
+import {catchError, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TestCodeDialogComponent} from "../test-code-dialog/test-code-dialog.component";
 import {DeleteTaskDialogComponent} from "../delete-task-dialog/delete-task-dialog.component";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {LoadingService} from "../service/loading.service";
 
 @Component({
   selector: 'app-task-info',
@@ -31,8 +32,6 @@ export class TaskInfoComponent implements AfterViewInit {
   id: String | undefined
   //short ref
   f = this.taskForm.controls
-  //TODO 组件化
-  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +39,8 @@ export class TaskInfoComponent implements AfterViewInit {
     private router: Router,
     private httpClient: HttpClient,
     private snackBarServiceService: SnackBarServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private loadingService: LoadingService
   ) {
     this.setValidators()
     this.activatedRoute.params.subscribe(params => {
@@ -64,6 +64,7 @@ export class TaskInfoComponent implements AfterViewInit {
     }
     if (this.taskForm.invalid) return
     this.httpClient.post(`${environment.resourceServer}/task`, this.taskForm.value)
+      .pipe(this.loadingService.setLoading())
       .subscribe(() => {
           this.snackBarServiceService.message({type: "success", message: "保存成功"})
           this.router.navigate(['/task']).then()
@@ -72,12 +73,9 @@ export class TaskInfoComponent implements AfterViewInit {
   }
 
   testCode() {
-    this.loading = true
     this.httpClient.post(`${environment.resourceServer}/task/testCode`, {"code": this.taskForm.value.code},
-      {responseType: 'text'}).pipe(
-      finalize(() => {
-        this.loading = false
-      }))
+      {responseType: 'text'})
+      .pipe(this.loadingService.setLoading())
       .subscribe(res => {
         this.dialog.open(TestCodeDialogComponent, {
           data: res
@@ -87,6 +85,7 @@ export class TaskInfoComponent implements AfterViewInit {
 
   private loadTask(id: String) {
     this.httpClient.get<Task>(`${environment.resourceServer}/task/${id}`).pipe(
+      this.loadingService.setLoading(),
       catchError(() => {
           this.router.navigate(['/notFound']).then()
           return of(null)
@@ -102,6 +101,7 @@ export class TaskInfoComponent implements AfterViewInit {
   private newTask() {
     // 读取api的代码模板进行初始化
     this.httpClient.get(`${environment.resourceServer}/task/template`, {responseType: 'text'})
+      .pipe(this.loadingService.setLoading())
       .subscribe(res => {
         let task = new Task()
         task.code = res
@@ -115,6 +115,7 @@ export class TaskInfoComponent implements AfterViewInit {
     }).afterClosed().subscribe(confirm => {
       if (confirm) {
         this.httpClient.delete(`${environment.resourceServer}/task/${this.id}`)
+          .pipe(this.loadingService.setLoading())
           .subscribe(() => {
               this.snackBarServiceService.message({type: "success", message: "删除成功"})
               this.router.navigate(['/task']).then()

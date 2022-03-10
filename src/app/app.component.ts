@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {OAuthService} from "angular-oauth2-oidc";
+import {LoadingService} from "./service/loading.service";
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,17 @@ export class AppComponent {
 
   isAuthed = false
   username = null
+  loading = this.loadService.isLoading()
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService,
+              private loadService: LoadingService) {
     this.loadAuth()
   }
 
   private loadAuth() {
     this.isAuthed = this.oauthService.hasValidAccessToken()
     // @ts-ignore
-    this.username = this.isAuthed ? this.oauthService.getIdentityClaims().sub : null
+    this.username = this.isAuthed ? this.oauthService.getIdentityClaims()["sub"] : null
   }
 
   login() {

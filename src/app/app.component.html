@@ -39,8 +39,11 @@
 
   <div class="app-content">
     <router-outlet>
-
     </router-outlet>
+  </div>
+  <!-- loading -->
+  <div id="loader-wrapper" *ngIf="loading|async">
+    <mat-spinner></mat-spinner>
   </div>
 
 </mat-sidenav-container>
