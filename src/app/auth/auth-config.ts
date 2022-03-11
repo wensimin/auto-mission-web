@@ -6,7 +6,7 @@ export const authConfig: AuthConfig = {
   issuer: environment.authSever,
   clientId: 'auto-mission', // The "Auth Code + PKCE" client
   responseType: 'code',
-  redirectUri: window.location.origin + environment.baseHref,
+  redirectUri: window.location.origin + "/auto-mission-web/",
   dummyClientSecret: '753951anna',
   scope: 'openid', // Ask offline_access to support refresh token refreshes
   useHttpBasicAuth: true,
