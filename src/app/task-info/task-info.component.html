@@ -39,13 +39,13 @@
 
 <div class="action-button">
   <button mat-raised-button color="accent" (click)="saveTask()">
-    保存待启动
+    {{isNew?"新建待启动":"保存待启动"}}
   </button>
   <button mat-raised-button color="warn" routerLink="/task">
     退出
   </button>
 </div>
-<div class="delete-button" *ngIf="id">
+<div class="delete-button" *ngIf="!isNew">
   <button mat-raised-button color="warn" (click)="deleteTask()">
     停止且销毁任务
   </button>

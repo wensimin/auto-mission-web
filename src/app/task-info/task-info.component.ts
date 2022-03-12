@@ -30,6 +30,7 @@ export class TaskInfoComponent implements AfterViewInit {
   editorOptions = {theme: 'vs-dark', language: 'kotlin'}
   taskForm: FormGroup = this.fb.group(new Task())
   id: String | undefined
+  isNew = true;
   //short ref
   f = this.taskForm.controls
 
@@ -46,6 +47,7 @@ export class TaskInfoComponent implements AfterViewInit {
     this.activatedRoute.params.subscribe(params => {
       this.id = params["id"]
       if (this.id) {
+        this.isNew = false
         this.loadTask(this.id)
       } else {
         this.newTask()
@@ -67,6 +69,10 @@ export class TaskInfoComponent implements AfterViewInit {
       .pipe(this.loadingService.setLoading())
       .subscribe(() => {
           this.snackBarServiceService.message({type: "success", message: "保存成功"})
+          // 初次创建直接返回列表
+          if (this.isNew) {
+            this.router.navigate(['/task']).then()
+          }
         }
       )
   }
