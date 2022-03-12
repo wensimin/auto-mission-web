@@ -67,7 +67,6 @@ export class TaskInfoComponent implements AfterViewInit {
       .pipe(this.loadingService.setLoading())
       .subscribe(() => {
           this.snackBarServiceService.message({type: "success", message: "保存成功"})
-          this.router.navigate(['/task']).then()
         }
       )
   }

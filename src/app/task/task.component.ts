@@ -8,6 +8,7 @@ import {Task} from "../model/Models";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {environment} from "../../environments/environment";
 import {LoadingService} from "../service/loading.service";
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-task',
@@ -34,7 +35,8 @@ export class TaskComponent implements AfterViewInit {
     private pageService: PageServiceService,
     private httpClient: HttpClient,
     private snackBarServiceService: SnackBarServiceService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private clipboard: Clipboard
   ) {
   }
 
@@ -53,10 +55,15 @@ export class TaskComponent implements AfterViewInit {
       {params: {"enabled": !task.enabled}})
       .pipe(this.loadingService.setLoading())
       .subscribe(() => {
-        this.snackBarServiceService.message({type: "success", message: "更改任务状态成功"})
-        task.enabled = !task.enabled
-      }
-    )
+          this.snackBarServiceService.message({type: "success", message: "更改任务状态成功"})
+          task.enabled = !task.enabled
+        }
+      )
+  }
+
+  copyId(id: string) {
+    this.clipboard.copy(id)
+    this.snackBarServiceService.message({type: "success", message: "已经复制任务id"})
   }
 }
 
