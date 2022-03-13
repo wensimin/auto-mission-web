@@ -46,11 +46,12 @@ import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {TaskInfoComponent} from './task-info/task-info.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {TestCodeDialogComponent} from './test-code-dialog/test-code-dialog.component';
+import {DebugCodeDialogComponent} from './debug-code-dialog/debug-code-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {TaskEditGuard} from "./task-info/task-edit.guard";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import {TaskEditGuard} from "./task-info/task-edit.guard";
     MatSlideToggleModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   declarations: [
     AppComponent,
@@ -97,7 +99,7 @@ import {TaskEditGuard} from "./task-info/task-edit.guard";
     PageNotFoundComponent,
     SnackBarComponent,
     TaskInfoComponent,
-    TestCodeDialogComponent,
+    DebugCodeDialogComponent,
     ConfirmDialogComponent
   ],
   providers: [

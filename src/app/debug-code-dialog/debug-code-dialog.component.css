@@ -1,0 +1,11 @@
+p {
+  white-space: pre-line;
+}
+
+mat-progress-bar {
+  margin: 0 0 10px;
+}
+
+.debug-dialog {
+  width: 800px;
+}

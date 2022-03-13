@@ -1,0 +1,14 @@
+
+<div class="debug-dialog">
+  <h1>console:</h1>
+  <mat-progress-bar mode="indeterminate" *ngIf="!data.end"></mat-progress-bar>
+  <mat-dialog-content class="mat-typography">
+    <p>{{data.consoleText}}</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button *ngIf="!data.end" (click)="stop()">中止任务</button>
+    <button mat-button *ngIf="data.end" [mat-dialog-close]="true">关闭</button>
+  </mat-dialog-actions>
+
+</div>

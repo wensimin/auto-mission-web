@@ -23,25 +23,36 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        let message = "发生未知错误"
-        switch (error.status) {
+      catchError((response: HttpErrorResponse) => {
+        let message = "未能连接到服务器"
+        let unKnownError = true
+        switch (response.status) {
           case HttpStatusCode.Unauthorized:
             message = "登录已过期,请重新登录"
             break
           case HttpStatusCode.InternalServerError:
-            message = "服务器发生未知错误"
+            unKnownError = HttpErrorInterceptor.isUnknownError(response)
+            if(unKnownError) message = "服务器发生未知错误"
             break
           case HttpStatusCode.Forbidden:
             message = "权限不足,无法访问"
             break
           case HttpStatusCode.NotFound:
             message = "未找到对应资源"
+            break
         }
-        this.snackBarServiceService.message({type: "error", message: message})
+        // 只有 未知才被公共处理
+        if (unKnownError) this.snackBarServiceService.message({type: "error", message: message})
         // 传递到下级
-        return throwError(() => error);
+        return throwError(() => response);
       })
     );
   }
+
+  private static isUnknownError(response: HttpErrorResponse): boolean {
+    let error = response.error
+    console.log(error["message"])
+    return error["error"] === "ERROR"
+  }
 }
+

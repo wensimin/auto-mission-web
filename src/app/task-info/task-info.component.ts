@@ -15,7 +15,7 @@ import {environment} from "../../environments/environment";
 import {catchError, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {MatDialog} from "@angular/material/dialog";
-import {TestCodeDialogComponent} from "../test-code-dialog/test-code-dialog.component";
+import {DebugCodeDialogComponent} from "../debug-code-dialog/debug-code-dialog.component";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {LoadingService} from "../service/loading.service";
@@ -89,12 +89,11 @@ export class TaskInfoComponent implements AfterViewInit {
       )
   }
 
-  testCode() {
-    this.httpClient.post(`${environment.resourceServer}/task/testCode`, {"code": this.taskForm.value.code},
-      {responseType: 'text'})
+  debugCode() {
+    this.httpClient.post(`${environment.resourceServer}/debug`, {"code": this.taskForm.value.code})
       .pipe(this.loadingService.setLoading())
       .subscribe(res => {
-        this.dialog.open(TestCodeDialogComponent, {
+        this.dialog.open(DebugCodeDialogComponent, {
           data: res
         })
       })
