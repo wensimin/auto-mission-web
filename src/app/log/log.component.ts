@@ -13,7 +13,7 @@ import {PageServiceService} from "../service/page-service.service";
 export class LogComponent implements AfterViewInit {
 
   logs: TaskLog[] = []
-  displayedColumns: string[] = ['label', 'text', 'createDate', 'action'];
+  displayedColumns: string[] = ['level', 'text', 'createDate', 'action'];
   resultsLength: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -21,7 +21,7 @@ export class LogComponent implements AfterViewInit {
   queryForm = this.fb.group({
     startDate: [''],
     endDate: [''],
-    label: [''],
+    level: [''],
     text: [''],
     taskId: ['']
   })
@@ -44,7 +44,7 @@ export class LogComponent implements AfterViewInit {
 }
 
 interface TaskLog {
-  label: String,
+  level: String,
   text: String,
   taskId: String,
   id: String,

@@ -1,7 +1,13 @@
 <div [formGroup]="queryForm">
   <mat-form-field appearance="standard">
-    <mat-label>标签</mat-label>
-    <input matInput formControlName="label" placeholder="输入要查询的标签">
+    <mat-label>级别</mat-label>
+    <mat-select formControlName="level">
+      <mat-option>全部</mat-option>
+      <mat-option value="ERROR">ERROR</mat-option>
+      <mat-option value="WARN">WARN</mat-option>
+      <mat-option value="INFO">INFO</mat-option>
+      <mat-option value="DEBUG">DEBUG</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="standard">
     <mat-label>内容</mat-label>
@@ -34,9 +40,9 @@
 
 <table mat-table [dataSource]="logs" class="mat-elevation-z8"
        matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
-  <ng-container matColumnDef="label">
-    <th mat-header-cell *matHeaderCellDef> 标签</th>
-    <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+  <ng-container matColumnDef="level">
+    <th mat-header-cell *matHeaderCellDef> 级别</th>
+    <td mat-cell *matCellDef="let element"> {{element.level}} </td>
   </ng-container>
 
   <ng-container matColumnDef="text">

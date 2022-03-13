@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   authSever: 'https://shali.fun:3000/authorization',
-  // resourceServer :'http://127.0.0.1:8080/auto-mission',
-  resourceServer: 'https://shali.fun:3000/auto-mission'
+  resourceServer :'http://127.0.0.1:8080/auto-mission',
+  // resourceServer: 'https://shali.fun:3000/auto-mission'
 };
 
 /*
