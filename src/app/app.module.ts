@@ -43,21 +43,22 @@ import {InitServiceService} from "./service/init-service.service";
 import {MatSelectModule} from "@angular/material/select";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
-import { TaskInfoComponent } from './task-info/task-info.component';
+import {TaskInfoComponent} from './task-info/task-info.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import { TestCodeDialogComponent } from './test-code-dialog/test-code-dialog.component';
+import {TestCodeDialogComponent} from './test-code-dialog/test-code-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {TaskEditGuard} from "./task-info/task-edit.guard";
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
       {path: '', redirectTo: '/task', pathMatch: 'full'},
       {path: "task", component: TaskComponent},
-      {path: "task/new", component: TaskInfoComponent},
-      {path: "task/:id", component: TaskInfoComponent},
+      {path: "task/new", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
+      {path: "task/:id", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
       {path: "log", component: LogComponent},
       {path: '**', component: PageNotFoundComponent}
     ]),
@@ -97,9 +98,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     SnackBarComponent,
     TaskInfoComponent,
     TestCodeDialogComponent,
-    DeleteTaskDialogComponent
+    ConfirmDialogComponent
   ],
   providers: [
+    // 编辑器用
+    TaskEditGuard,
     // 分页器chinese
     {provide: MatPaginatorIntl, useClass: ChinesePaginatorIntl},
     // date pick chinese

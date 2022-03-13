@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, HostListener} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {
   AbstractControl,
@@ -16,9 +16,10 @@ import {catchError, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TestCodeDialogComponent} from "../test-code-dialog/test-code-dialog.component";
-import {DeleteTaskDialogComponent} from "../delete-task-dialog/delete-task-dialog.component";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {LoadingService} from "../service/loading.service";
+import * as lodash from 'lodash';
 
 @Component({
   selector: 'app-task-info',
@@ -29,8 +30,11 @@ export class TaskInfoComponent implements AfterViewInit {
 
   editorOptions = {theme: 'vs-dark', language: 'kotlin'}
   taskForm: FormGroup = this.fb.group(new Task())
+  // 干净的已经保存的任务
+  clearTask:Task = new Task()
   id: String | undefined
-  isNew = true;
+  isNew = true
+  isEdited = false
   //short ref
   f = this.taskForm.controls
 
@@ -44,6 +48,8 @@ export class TaskInfoComponent implements AfterViewInit {
     private loadingService: LoadingService
   ) {
     this.setValidators()
+    // 修改了 数据dirty化
+    this.taskForm.valueChanges.subscribe(() => this.isEdited = !lodash.isEqual(this.clearTask,this.taskForm.value))
     this.activatedRoute.params.subscribe(params => {
       this.id = params["id"]
       if (this.id) {
@@ -56,7 +62,11 @@ export class TaskInfoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
 
+  @HostListener('window:beforeunload')
+  beforeunload() {
+    return !this.isEdited
   }
 
   saveTask() {
@@ -69,6 +79,8 @@ export class TaskInfoComponent implements AfterViewInit {
       .pipe(this.loadingService.setLoading())
       .subscribe(() => {
           this.snackBarServiceService.message({type: "success", message: "保存成功"})
+          this.isEdited = false
+          this.clearTask = this.taskForm.value
           // 初次创建直接返回列表
           if (this.isNew) {
             this.router.navigate(['/task']).then()
@@ -97,7 +109,7 @@ export class TaskInfoComponent implements AfterViewInit {
         }
       )).subscribe(task => {
         if (task) {
-          this.taskForm.setValue(task)
+          this.setTask(task)
         }
       }
     )
@@ -110,13 +122,17 @@ export class TaskInfoComponent implements AfterViewInit {
       .subscribe(res => {
         let task = new Task()
         task.code = res
-        this.taskForm.setValue(task)
+        this.setTask(task)
       })
   }
 
   deleteTask() {
-    this.dialog.open(DeleteTaskDialogComponent, {
-      data: this.taskForm.value
+    let task = this.taskForm.value
+    this.dialog.open(ConfirmDialogComponent, {
+      data: [
+        `确认删除任务 ${task.name} 吗?`,
+        `id为:${task.id}`
+      ]
     }).afterClosed().subscribe(confirm => {
       if (confirm) {
         this.httpClient.delete(`${environment.resourceServer}/task/${this.id}`)
@@ -170,8 +186,22 @@ export class TaskInfoComponent implements AfterViewInit {
     }
     return null
   }
+
+  /**
+   * 编程方式set task
+   * 本方法不会触发form的value change
+   * 当前由于code编辑器的异步问题,会触发一次value change
+   * 会将当前clearTask 设置为task
+   */
+  private setTask(task: Task) {
+    this.clearTask = task
+    this.taskForm.setValue(task, {emitEvent: false})
+  }
 }
 
+/**
+ * 整个表单验证不通过时报错使用该matcher的input
+ */
 export class HasErrorMatcher implements ErrorStateMatcher {
   constructor(private errors: String[]) {
   }
