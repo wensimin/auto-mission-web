@@ -32,7 +32,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             break
           case HttpStatusCode.InternalServerError:
             unKnownError = HttpErrorInterceptor.isUnknownError(response)
-            if(unKnownError) message = "服务器发生未知错误"
+            if (unKnownError) message = "服务器发生未知错误"
             break
           case HttpStatusCode.Forbidden:
             message = "权限不足,无法访问"
@@ -54,5 +54,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     console.log(error["message"])
     return error["error"] === "ERROR"
   }
+}
+
+export enum ErrorType {
+  ERROR = "ERROR",
+  DEBUG_LIMIT = "DEBUG_LIMIT",
 }
 

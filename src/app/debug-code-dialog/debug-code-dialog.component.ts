@@ -47,7 +47,7 @@ export class DebugCodeDialogComponent implements OnInit {
    * 设置轮询
    */
   private setPolling() {
-    this.timeInterval = interval(5000)
+    this.timeInterval = interval(1000)
       .pipe(
         startWith(0),
         switchMap(() => this.httpClient.get<DebugResult>(`${environment.resourceServer}/debug/${this.data.id}`))
