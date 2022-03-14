@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormGroup} from "@angular/forms";
@@ -20,8 +20,9 @@ export class PageServiceService {
    * @param queryForm 查询参数
    * @param paginator 分页参数
    * @param sort 排序参数
+   * @param queryEmitter 查询触发器
    */
-  page<T>(endpoint: String, queryForm: FormGroup, paginator: MatPaginator, sort: MatSort) {
+  page<T>(endpoint: String, queryForm: FormGroup, paginator: MatPaginator, sort: MatSort, queryEmitter: EventEmitter<any> | null = null) {
     // 查询参数做防抖与去重
     let queryObs = queryForm.valueChanges.pipe(
       debounceTime(300),
@@ -29,8 +30,10 @@ export class PageServiceService {
     )
     //设置 变更查询&排序时重置页码
     merge(queryObs, sort.sortChange).subscribe(() => paginator.pageIndex = 0)
+    // 查询触发器可选
+    let obs = queryEmitter == null ? merge(queryObs, sort.sortChange, paginator.page) : merge(queryObs, sort.sortChange, paginator.page, queryEmitter)
     // 建立查询obs
-    return merge(queryObs, sort.sortChange, paginator.page)
+    return obs
       .pipe(
         startWith({}),
         switchMap(() => {

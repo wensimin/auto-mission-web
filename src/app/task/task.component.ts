@@ -8,7 +8,9 @@ import {Task} from "../model/Models";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {environment} from "../../environments/environment";
 import {LoadingService} from "../service/loading.service";
-import {Clipboard} from '@angular/cdk/clipboard';
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-task',
@@ -35,8 +37,8 @@ export class TaskComponent implements AfterViewInit {
     private pageService: PageServiceService,
     private httpClient: HttpClient,
     private snackBarServiceService: SnackBarServiceService,
-    private loadingService: LoadingService,
-    private clipboard: Clipboard
+    private dialog: MatDialog,
+    private loadingService: LoadingService
   ) {
   }
 
@@ -50,20 +52,20 @@ export class TaskComponent implements AfterViewInit {
   }
 
 
-  switchTask(task: Task) {
+  async switchTask(task: Task) {
+    let confirm = await firstValueFrom(this.dialog.open(ConfirmDialogComponent, {
+      data: `确认${task.enabled ? "停止" : "启动"} ${task.name} 吗?`
+    }).afterClosed()).then()
+    if (!confirm) return
     this.httpClient.put(`${environment.resourceServer}/task/${task.id}`, {},
       {params: {"enabled": !task.enabled}})
       .pipe(this.loadingService.setLoading())
       .subscribe(() => {
-          this.snackBarServiceService.message({type: "success", message: "更改任务状态成功"})
+          this.snackBarServiceService.message({type: "success", message: `${task.enabled ? "停止" : "启动"}任务成功`})
           task.enabled = !task.enabled
         }
       )
   }
 
-  copyId(id: string) {
-    this.clipboard.copy(id)
-    this.snackBarServiceService.message({type: "success", message: "已经复制任务id"})
-  }
 }
 

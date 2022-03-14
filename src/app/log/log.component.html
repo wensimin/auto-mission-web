@@ -1,4 +1,4 @@
-<div [formGroup]="queryForm">
+<div class="form" [formGroup]="queryForm">
   <mat-form-field appearance="standard">
     <mat-label>级别</mat-label>
     <mat-select formControlName="level">
@@ -34,8 +34,9 @@
     <mat-error *ngIf="queryForm.controls['startDate'].hasError('matStartDateInvalid')">非法的开始日期</mat-error>
     <mat-error *ngIf="queryForm.controls['endDate'].hasError('matEndDateInvalid')">非法的结束日期</mat-error>
   </mat-form-field>
-
 </div>
+<mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
+
 
 
 <table mat-table [dataSource]="logs" class="mat-elevation-z8"
@@ -47,7 +48,7 @@
 
   <ng-container matColumnDef="text">
     <th mat-header-cell *matHeaderCellDef> 日志</th>
-    <td mat-cell *matCellDef="let element" [cdkCopyToClipboard]="element.text"><p>{{element.text}}</p></td>
+    <td mat-cell *matCellDef="let element"><p>{{element.text}}</p></td>
   </ng-container>
 
   <ng-container matColumnDef="createDate">

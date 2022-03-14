@@ -136,10 +136,7 @@ export class TaskInfoComponent implements AfterViewInit {
   deleteTask() {
     let task = this.taskForm.value
     this.dialog.open(ConfirmDialogComponent, {
-      data: [
-        `确认删除任务 ${task.name} 吗?`,
-        `id为:${task.id}`
-      ]
+      data: `确认删除任务 ${task.name} 吗?\nid为:${task.id}`
     }).afterClosed().subscribe(confirm => {
       if (confirm) {
         this.httpClient.delete(`${environment.resourceServer}/task/${this.id}`)

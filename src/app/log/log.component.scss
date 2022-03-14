@@ -10,6 +10,7 @@
   padding-right: 16px;
   //似乎能起到 限制宽的效果
   max-width: 0;
+
   p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -34,4 +35,14 @@
 mat-form-field {
   padding: 5px;
   line-height: 1.4
+}
+
+.form {
+  display: inline-block
+}
+
+mat-slide-toggle {
+  float: right;
+  padding-top: 30px;
+  padding-right: 20px;
 }

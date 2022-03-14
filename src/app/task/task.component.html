@@ -46,7 +46,7 @@
       <button mat-mini-fab color="primary" routerLink="/task/{{element.id}}">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="primary" (click)="copyId(element.id)" >
+      <button mat-mini-fab color="primary" routerLink="/log" [queryParams]="{taskId:element.id}">
         <mat-icon>link</mat-icon>
       </button>
       <button *ngIf="element.enabled" mat-mini-fab color="warn" (click)="switchTask(element)">

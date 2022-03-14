@@ -1,8 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder} from "@angular/forms";
 import {PageServiceService} from "../service/page-service.service";
+import {interval, Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-log',
@@ -15,6 +17,10 @@ export class LogComponent implements AfterViewInit {
   logs: TaskLog[] = []
   displayedColumns: string[] = ['level', 'text', 'createDate', 'action'];
   resultsLength: number = 0;
+  queryEmitter = new EventEmitter()
+  realTime = false
+
+  private timeInterval: Subscription | undefined;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,19 +35,34 @@ export class LogComponent implements AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private pageService: PageServiceService
+    private pageService: PageServiceService,
+    private route: ActivatedRoute
   ) {
+    this.route.queryParams.subscribe(value => {
+      let id = value["taskId"]
+      if (id) this.queryForm.controls["taskId"].setValue(id)
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.timeInterval?.unsubscribe()
   }
 
   ngAfterViewInit(): void {
+
     this.pageService
-      .page<TaskLog>("taskLog", this.queryForm, this.paginator, this.sort)
+      .page<TaskLog>("taskLog", this.queryForm, this.paginator, this.sort, this.queryEmitter)
       .subscribe(page => {
         this.resultsLength = page.totalElements
         this.logs = page.content
       })
+
+    this.timeInterval = interval(1000).subscribe(() => {
+      if (this.realTime) this.queryEmitter.emit()
+    })
   }
 }
+
 
 interface TaskLog {
   level: String,
