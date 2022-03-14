@@ -38,7 +38,7 @@ export class DebugCodeDialogComponent implements OnInit {
     this.data = res ? res : {
       id: this.data.id,
       end: true,
-      consoleText: this.data.consoleText + "\n 服务器终止了任务的过长执行"
+      consoleText: this.data.consoleText + "\n 任务已经结束"
     }
 
   }
