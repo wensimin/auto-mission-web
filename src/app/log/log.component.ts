@@ -5,6 +5,8 @@ import {FormBuilder} from "@angular/forms";
 import {PageServiceService} from "../service/page-service.service";
 import {interval, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
 
 @Component({
   selector: 'app-log',
@@ -36,6 +38,7 @@ export class LogComponent implements AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private pageService: PageServiceService,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(value => {
@@ -46,6 +49,12 @@ export class LogComponent implements AfterViewInit {
 
   ngOnDestroy(): void {
     this.timeInterval?.unsubscribe()
+  }
+
+  showLog(message: String) {
+    this.dialog.open(MessageDialogComponent, {
+      data: message
+    })
   }
 
   ngAfterViewInit(): void {

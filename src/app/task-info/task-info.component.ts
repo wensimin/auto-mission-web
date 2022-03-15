@@ -50,7 +50,11 @@ export class TaskInfoComponent implements AfterViewInit {
   ) {
     this.setValidators()
     // 修改了 数据dirty化
-    this.taskForm.valueChanges.subscribe(() => this.isEdited = !lodash.isEqual(this.clearTask, this.taskForm.value))
+    this.taskForm.valueChanges.subscribe(() => {
+      //TODO 目前new task 初始化似乎 eq false ,良性bug暂时先放
+      this.isEdited = !lodash.isEqual(this.clearTask, this.taskForm.value)
+      }
+    )
     this.activatedRoute.params.subscribe(params => {
       this.id = params["id"]
       if (this.id) {

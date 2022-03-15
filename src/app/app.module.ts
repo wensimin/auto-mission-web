@@ -52,6 +52,7 @@ import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component'
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {TaskEditGuard} from "./task-info/task-edit.guard";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     SnackBarComponent,
     TaskInfoComponent,
     DebugCodeDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MessageDialogComponent
   ],
   providers: [
     // 编辑器用

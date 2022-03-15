@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {interval, startWith, Subscription, switchMap} from "rxjs";
@@ -15,8 +15,11 @@ export class DebugCodeDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DebugResult,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    dialogRef: MatDialogRef<DebugCodeDialogComponent>
   ) {
+    // 不允许点击dialog外关闭
+    dialogRef.disableClose = true
   }
 
   ngOnInit(): void {
