@@ -10,7 +10,7 @@ export class InitServiceService {
 
   }
 
-  async load() {
+  async load(): Promise<TokenResponse | void> {
     console.log(`初始化前token ${this.oauthService.getAccessToken()}`)
     // 监听access_token进行刷新
     this.oauthService.setupAutomaticSilentRefresh({}, "access_token")
