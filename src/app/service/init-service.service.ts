@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
 import {OAuthService, TokenResponse} from "angular-oauth2-oidc";
+import {NGXLogger} from "ngx-logger";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InitServiceService {
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService,private logger:NGXLogger) {
 
   }
 
   async load(): Promise<TokenResponse | void> {
-    console.log(`初始化前token ${this.oauthService.getAccessToken()}`)
+    this.logger.debug(`初始化前token ${this.oauthService.getAccessToken()}`)
     // 监听access_token进行刷新
     this.oauthService.setupAutomaticSilentRefresh({}, "access_token")
     let token: TokenResponse | void
@@ -22,7 +23,7 @@ export class InitServiceService {
         // 刷新token获取失败则退出登录
         await this.oauthService.revokeTokenAndLogout().then()
       })
-      console.log(`初始化后token ${token?.access_token}`)
+      this.logger.debug(`初始化后token ${token?.access_token}`)
     }
     return token
   }

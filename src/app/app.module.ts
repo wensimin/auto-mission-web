@@ -53,6 +53,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {TaskEditGuard} from "./task-info/task-edit.guard";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 
 @NgModule({
   imports: [
@@ -92,6 +93,10 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
     MatDialogModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.DEBUG
+    }),
   ],
   declarations: [
     AppComponent,
