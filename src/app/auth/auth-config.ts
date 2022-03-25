@@ -8,7 +8,7 @@ export const authConfig: AuthConfig = {
   responseType: 'code',
   redirectUri: window.location.origin + "/auto-mission-web/",
   dummyClientSecret: '753951anna',
-  scope: 'openid', // Ask offline_access to support refresh token refreshes
+  scope: 'openid profile', // Ask offline_access to support refresh token refreshes
   useHttpBasicAuth: true,
   revocationEndpoint: environment.authSever + '/oauth2/revoke',
   tokenEndpoint: environment.authSever + '/oauth2/token',
