@@ -25,6 +25,7 @@ export class InitServiceService {
       })
       this.logger.debug(`初始化后token ${token?.access_token}`)
     }
+    this.logger.debug("完成初始化")
     return token
   }
 }

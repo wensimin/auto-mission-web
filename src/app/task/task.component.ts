@@ -11,6 +11,7 @@ import {LoadingService} from "../service/loading.service";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {firstValueFrom} from "rxjs";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'app-task',
@@ -38,11 +39,13 @@ export class TaskComponent implements AfterViewInit {
     private httpClient: HttpClient,
     private snackBarServiceService: SnackBarServiceService,
     private dialog: MatDialog,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private logger: NGXLogger
   ) {
   }
 
   ngAfterViewInit(): void {
+    this.logger.debug("task init!")
     this.pageService
       .page<Task>("task", this.queryForm, this.paginator, this.sort)
       .subscribe(page => {

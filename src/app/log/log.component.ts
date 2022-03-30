@@ -7,6 +7,7 @@ import {interval, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'app-log',
@@ -39,7 +40,8 @@ export class LogComponent implements AfterViewInit {
     private fb: FormBuilder,
     private pageService: PageServiceService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private logger: NGXLogger
   ) {
     this.route.queryParams.subscribe(value => {
       let id = value["taskId"]
@@ -58,7 +60,7 @@ export class LogComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
+    this.logger.debug("task log init!")
     this.pageService
       .page<TaskLog>("taskLog", this.queryForm, this.paginator, this.sort, this.queryEmitter)
       .subscribe(page => {
