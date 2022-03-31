@@ -1,5 +1,5 @@
 declare var process: {
   env: {
-    DOMAIN: String
+    NG_APP_DOMAIN: String
   };
 };
