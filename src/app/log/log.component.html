@@ -1,5 +1,5 @@
 <div class="form" [formGroup]="queryForm">
-  <mat-form-field appearance="standard">
+  <mat-form-field>
     <mat-label>级别</mat-label>
     <mat-select formControlName="level">
       <mat-option>全部</mat-option>
@@ -9,15 +9,23 @@
       <mat-option value="DEBUG">DEBUG</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>内容</mat-label>
-    <input matInput formControlName="text" placeholder="输入要查询的内容">
+  <mat-form-field>
+    <input matInput type="text" formControlName="text" placeholder="输入要查询的内容">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+            *ngIf="queryForm.controls['text'].value"
+            (click)="queryForm.controls['text'].setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>任务ID</mat-label>
+  <mat-form-field>
     <input matInput formControlName="taskId" placeholder="输入要查询的任务ID">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+            *ngIf="queryForm.controls['taskId'].value"
+            (click)="queryForm.controls['taskId'].setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field>
     <mat-label>输入一个时间范围</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input matStartDate formControlName="startDate" placeholder="开始时间">
@@ -26,6 +34,10 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker>
       <mat-datepicker-actions>
+        <button mat-button matDatepickerCancel (click)=
+          "queryForm.controls['startDate'].setValue('');
+          queryForm.controls['endDate'].setValue('')">清除
+        </button>
         <button mat-button matDatepickerCancel>取消</button>
         <button mat-raised-button color="primary" matDatepickerApply>确认</button>
       </mat-datepicker-actions>
@@ -36,7 +48,6 @@
   </mat-form-field>
 </div>
 <mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
-
 <div class="table-container scroll-bar">
   <table mat-table [dataSource]="logs" class="mat-elevation-z8"
          matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">

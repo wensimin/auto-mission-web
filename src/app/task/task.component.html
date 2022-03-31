@@ -1,13 +1,21 @@
-<div [formGroup]="queryForm">
-  <mat-form-field appearance="standard">
-    <mat-label>名字</mat-label>
+<div class="form" [formGroup]="queryForm">
+  <mat-form-field>
     <input matInput formControlName="name" placeholder="输入要查询的名字">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+            *ngIf="queryForm.controls['name'].value"
+            (click)="queryForm.controls['name'].setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>描述</mat-label>
+  <mat-form-field>
     <input matInput formControlName="description" placeholder="输入要搜索的描述">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+            *ngIf="queryForm.controls['description'].value"
+            (click)="queryForm.controls['description'].setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field>
     <mat-label>状态</mat-label>
     <mat-select formControlName="enabled">
       <mat-option>全部</mat-option>
