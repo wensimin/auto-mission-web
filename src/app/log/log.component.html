@@ -10,7 +10,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" formControlName="text" placeholder="输入要查询的内容">
+    <input matInput type="text" autocomplete="off" formControlName="text" placeholder="输入要查询的内容">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['text'].value"
             (click)="queryForm.controls['text'].setValue('')">
@@ -18,7 +18,7 @@
     </button>
   </mat-form-field>
   <mat-form-field>
-    <input matInput formControlName="taskId" placeholder="输入要查询的任务ID">
+    <input matInput formControlName="taskId" autocomplete="off" placeholder="输入要查询的任务ID">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['taskId'].value"
             (click)="queryForm.controls['taskId'].setValue('')">

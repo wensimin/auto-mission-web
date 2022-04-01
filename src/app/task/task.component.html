@@ -1,6 +1,6 @@
 <div class="form" [formGroup]="queryForm">
   <mat-form-field>
-    <input matInput formControlName="name" placeholder="输入要查询的名字">
+    <input matInput formControlName="name" autocomplete="off" placeholder="输入要查询的名字">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['name'].value"
             (click)="queryForm.controls['name'].setValue('')">
@@ -8,7 +8,7 @@
     </button>
   </mat-form-field>
   <mat-form-field>
-    <input matInput formControlName="description" placeholder="输入要搜索的描述">
+    <input matInput formControlName="description" autocomplete="off" placeholder="输入要查询的描述">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['description'].value"
             (click)="queryForm.controls['description'].setValue('')">
