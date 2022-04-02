@@ -17,7 +17,7 @@ export class InitServiceService {
     this.oauthService.setupAutomaticSilentRefresh({}, "access_token")
     let token: TokenResponse | void
     // 当ac token 无效且拥有rf token时刷新
-    this.logger.debug(`token有效:${this.oauthService.hasValidAccessToken()}`)
+    this.logger.debug(`token有效:${this.oauthService.hasValidAccessToken()}, 过期时间:${this.oauthService.getAccessTokenExpiration()}`)
     if (!this.oauthService.hasValidAccessToken() && this.oauthService.getRefreshToken()) {
       this.logger.debug(`执行刷新token`)
       // 等待获取新token后再加载其他部分
