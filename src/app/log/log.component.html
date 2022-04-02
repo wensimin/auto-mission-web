@@ -27,20 +27,21 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput [ngxMatDatetimePicker]="startPicker" autocomplete="off" placeholder="起始时间"
-           formControlName="startDate">
+           formControlName="startDate" [errorStateMatcher]="dateRangeError">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['startDate'].value"
             (click)="queryForm.controls['startDate'].setValue('')">
       <mat-icon>close</mat-icon>
     </button>
     <mat-datepicker-toggle matSuffix [for]="$any(startPicker)"></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #startPicker [showSeconds]="true" >
+    <ngx-mat-datetime-picker #startPicker [showSeconds]="true">
     </ngx-mat-datetime-picker>
+    <mat-error *ngIf="queryForm.errors?.['dateRange']">起始时间必须大于截止时间</mat-error>
   </mat-form-field>
   <span>-</span>
   <mat-form-field>
     <input matInput [ngxMatDatetimePicker]="endPicker" autocomplete="off" placeholder="截止时间"
-           formControlName="endDate">
+           formControlName="endDate" [errorStateMatcher]="dateRangeError">
     <mat-datepicker-toggle matSuffix [for]="$any(endPicker)"></mat-datepicker-toggle>
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
             *ngIf="queryForm.controls['endDate'].value"
@@ -49,6 +50,7 @@
     </button>
     <ngx-mat-datetime-picker #endPicker [showSeconds]="true">
     </ngx-mat-datetime-picker>
+    <mat-error *ngIf="queryForm.errors?.['dateRange']">起始时间必须大于截止时间</mat-error>
   </mat-form-field>
 </div>
 <mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>

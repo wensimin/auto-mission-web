@@ -8,6 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
 import {NGXLogger} from "ngx-logger";
+import {HasErrorMatcher} from "../task-info/task-info.component";
 
 @Component({
   selector: 'app-log',
@@ -35,6 +36,8 @@ export class LogComponent implements AfterViewInit {
     taskId: ['']
   })
 
+  dateRangeError = new HasErrorMatcher(['dateRange']);
+
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +49,14 @@ export class LogComponent implements AfterViewInit {
     this.route.queryParams.subscribe(value => {
       let id = value["taskId"]
       if (id) this.queryForm.controls["taskId"].setValue(id)
+    })
+    this.queryForm.addValidators(control => {
+      const startDate = control.get("startDate")?.value;
+      const endDate = control.get("endDate")?.value;
+      if ((startDate && endDate) && startDate > endDate) {
+        return {'dateRange': true}
+      }
+      return null
     })
   }
 
