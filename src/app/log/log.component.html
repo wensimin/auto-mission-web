@@ -34,7 +34,7 @@
       <mat-icon>close</mat-icon>
     </button>
     <mat-datepicker-toggle matSuffix [for]="$any(startPicker)"></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #startPicker [showSeconds]="true">
+    <ngx-mat-datetime-picker #startPicker [showSeconds]="true" [defaultTime]="[0,0,0]">
     </ngx-mat-datetime-picker>
     <mat-error *ngIf="queryForm.errors?.['dateRange']">起始时间必须大于截止时间</mat-error>
   </mat-form-field>
@@ -48,7 +48,7 @@
             (click)="queryForm.controls['endDate'].setValue('')">
       <mat-icon>close</mat-icon>
     </button>
-    <ngx-mat-datetime-picker #endPicker [showSeconds]="true">
+    <ngx-mat-datetime-picker #endPicker [showSeconds]="true" [defaultTime]="[0,0,0]">
     </ngx-mat-datetime-picker>
     <mat-error *ngIf="queryForm.errors?.['dateRange']">起始时间必须大于截止时间</mat-error>
   </mat-form-field>
