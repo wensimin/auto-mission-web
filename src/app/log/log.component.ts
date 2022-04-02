@@ -83,6 +83,19 @@ export class LogComponent implements AfterViewInit {
       if (this.realTime) this.queryEmitter.emit()
     })
   }
+
+  /**
+   * 搜索时间点前后的范围log
+   * @param date 时间点
+   */
+  filterLog(date: string) {
+    // 目前hard code 5min
+    const range = 5 * 60 * 1000
+    const startDate = new Date(Date.parse(date) - range)
+    const endDate = new Date(Date.parse(date) + range)
+    this.queryForm.controls["startDate"].setValue(startDate)
+    this.queryForm.controls["endDate"].setValue(endDate)
+  }
 }
 
 

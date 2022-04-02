@@ -27,9 +27,11 @@
 }
 
 .mat-column-action {
-  border-left: 1px solid currentColor;
-  width: 5%;
   text-align: center;
+  width: 10%;
+  button {
+    margin: 10px;
+  }
 }
 
 mat-form-field {

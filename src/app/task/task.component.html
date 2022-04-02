@@ -51,16 +51,16 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> 操作</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab color="primary" routerLink="/task/{{element.id}}">
+        <button mat-mini-fab matTooltip="编辑" color="primary" routerLink="/task/{{element.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="primary" routerLink="/log" [queryParams]="{taskId:element.id}">
+        <button mat-mini-fab matTooltip="查看日志" color="primary" routerLink="/log" [queryParams]="{taskId:element.id}">
           <mat-icon>link</mat-icon>
         </button>
-        <button *ngIf="element.enabled" mat-mini-fab color="warn" (click)="switchTask(element)">
+        <button *ngIf="element.enabled" matTooltip="停止" mat-mini-fab color="warn" (click)="switchTask(element)">
           <mat-icon>stop</mat-icon>
         </button>
-        <button *ngIf="!element.enabled" mat-mini-fab color="accent" (click)="switchTask(element)">
+        <button *ngIf="!element.enabled" matTooltip="启动" mat-mini-fab color="accent" (click)="switchTask(element)">
           <mat-icon>play_circle_outline</mat-icon>
         </button>
       </td>

@@ -50,6 +50,7 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
 import {ChineseDateAdapter} from "./bean/chinese-date-adapter";
 import localeCn from '@angular/common/locales/zh';
 import {registerLocaleData} from "@angular/common";
+import {MatTooltipModule} from "@angular/material/tooltip";
 registerLocaleData(localeCn);
 
 @NgModule({
@@ -95,6 +96,7 @@ registerLocaleData(localeCn);
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.DEBUG
     }),
+    MatTooltipModule,
   ],
   declarations: [
     AppComponent,
