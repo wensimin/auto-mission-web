@@ -5,6 +5,7 @@ import {FormGroup} from "@angular/forms";
 import {catchError, debounceTime, distinctUntilChanged, merge, of, startWith, switchMap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {formatDate} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,9 @@ export class PageServiceService {
       // 可以format为日期的format
       if (v.format) {
         v = v.format("YYYY-MM-DD HH:mm:ss")
+      } else if (v instanceof Date) {
+        // date format
+        v = formatDate(v, "YYYY-MM-dd HH:mm:ss", 'zh-CN')
       }
       param.set(k, v)
     })

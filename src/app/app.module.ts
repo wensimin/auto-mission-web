@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -28,7 +28,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChinesePaginatorIntl} from "./bean/ChineseMatPaginatorIntl";
-import 'moment/locale/ja';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SnackBarComponent} from './snack-bar/snack-bar.component';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
@@ -48,8 +47,10 @@ import {TaskEditGuard} from "./task-info/task-edit.guard";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MessageDialogComponent} from './message-dialog/message-dialog.component';
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
-import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {ChineseDateAdapter} from "./bean/chinese-date-adapter";
+import localeCn from '@angular/common/locales/zh';
+import {registerLocaleData} from "@angular/common";
+registerLocaleData(localeCn);
 
 @NgModule({
   imports: [
@@ -117,7 +118,8 @@ import {ChineseDateAdapter} from "./bean/chinese-date-adapter";
       useClass: HttpErrorInterceptor,
       multi: true
     },
-    {provide: MAT_DATE_LOCALE, useValue: 'zh-CN'},
+    // 用于angular pipe的locale
+    {provide: LOCALE_ID, useValue: 'zh-CN'},
     {
       provide: NgxMatDateAdapter,
       useClass: ChineseDateAdapter
@@ -135,5 +137,6 @@ import {ChineseDateAdapter} from "./bean/chinese-date-adapter";
 
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
