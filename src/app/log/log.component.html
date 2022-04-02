@@ -26,26 +26,18 @@
     </button>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>输入一个时间范围</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate formControlName="startDate" placeholder="开始时间">
-      <input matEndDate formControlName="endDate" placeholder="结束时间">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker>
-      <mat-datepicker-actions>
-        <button mat-button matDatepickerCancel (click)=
-          "queryForm.controls['startDate'].setValue('');
-          queryForm.controls['endDate'].setValue('')">清除
-        </button>
-        <button mat-button matDatepickerCancel>取消</button>
-        <button mat-raised-button color="primary" matDatepickerApply>确认</button>
-      </mat-datepicker-actions>
-    </mat-date-range-picker>
-
-    <mat-error *ngIf="queryForm.controls['startDate'].hasError('matStartDateInvalid')">非法的开始日期</mat-error>
-    <mat-error *ngIf="queryForm.controls['endDate'].hasError('matEndDateInvalid')">非法的结束日期</mat-error>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="选择起始时间" formControlName="startDate">
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker>
+    </ngx-mat-datetime-picker>
   </mat-form-field>
+<!--  <mat-form-field>-->
+<!--    <mat-label>输入一个时间范围</mat-label>-->
+
+
+<!--    <mat-error *ngIf="queryForm.controls['startDate'].hasError('matStartDateInvalid')">非法的开始日期</mat-error>-->
+<!--    <mat-error *ngIf="queryForm.controls['endDate'].hasError('matEndDateInvalid')">非法的结束日期</mat-error>-->
+<!--  </mat-form-field>-->
 </div>
 <mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
 <div class="table-container scroll-bar">

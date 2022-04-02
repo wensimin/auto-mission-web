@@ -14,12 +14,11 @@ import {TaskComponent} from './task/task.component';
 import {LogComponent} from './log/log.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  MatNativeDateModule,
-  MatRippleModule
-} from "@angular/material/core";
+  NgxMatDateAdapter,
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
@@ -29,11 +28,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ChinesePaginatorIntl} from "./bean/ChineseMatPaginatorIntl";
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter
-} from "@angular/material-moment-adapter";
 import 'moment/locale/ja';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SnackBarComponent} from './snack-bar/snack-bar.component';
@@ -52,8 +46,10 @@ import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component'
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {TaskEditGuard} from "./task-info/task-edit.guard";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import {MessageDialogComponent} from './message-dialog/message-dialog.component';
 import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {ChineseDateAdapter} from "./bean/chinese-date-adapter";
 
 @NgModule({
   imports: [
@@ -74,7 +70,6 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
     MatIconModule,
     MatSidenavModule,
     MatCardModule,
-    MatRippleModule,
     MatListModule,
     MatTableModule,
     MatSortModule,
@@ -82,7 +77,6 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSelectModule,
@@ -93,6 +87,9 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
     MatDialogModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.DEBUG
@@ -114,19 +111,16 @@ import {LoggerModule, NgxLoggerLevel} from "ngx-logger";
     TaskEditGuard,
     // 分页器chinese
     {provide: MatPaginatorIntl, useClass: ChinesePaginatorIntl},
-    // date pick chinese
-    {provide: MAT_DATE_LOCALE, useValue: 'zh-CN'},
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
     // 全局错误拦截器
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
+    },
+    {provide: MAT_DATE_LOCALE, useValue: 'zh-CN'},
+    {
+      provide: NgxMatDateAdapter,
+      useClass: ChineseDateAdapter
     },
     InitServiceService,
     {

@@ -28,8 +28,8 @@ export class LogComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   queryForm = this.fb.group({
-    startDate: [''],
-    endDate: [''],
+    startDate: [null],
+    endDate: [null],
     level: [''],
     text: [''],
     taskId: ['']
