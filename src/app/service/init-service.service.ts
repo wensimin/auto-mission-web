@@ -13,8 +13,6 @@ export class InitServiceService {
 
   async load(): Promise<TokenResponse | void> {
     this.logger.debug(`初始化前token ${this.oauthService.getAccessToken()}`)
-    // 监听access_token进行刷新
-    this.oauthService.setupAutomaticSilentRefresh({}, "access_token")
     let token: TokenResponse | void
     // 当ac token 无效且拥有rf token时刷新
     this.logger.debug(`token有效:${this.oauthService.hasValidAccessToken()}, 过期时间:${this.oauthService.getAccessTokenExpiration()}`)
@@ -28,6 +26,8 @@ export class InitServiceService {
       this.logger.debug(`初始化后token ${token?.access_token}`)
     }
     this.logger.debug("完成初始化")
+    // 监听access_token进行刷新
+    this.oauthService.setupAutomaticSilentRefresh({}, "access_token")
     return token
   }
 }
