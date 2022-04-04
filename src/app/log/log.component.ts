@@ -87,14 +87,16 @@ export class LogComponent implements AfterViewInit {
   /**
    * 搜索时间点前后的范围log
    * @param date 时间点
+   * @param taskId 任务id
    */
-  filterLog(date: string) {
-    // 目前hard code 5min
-    const range = 5 * 60 * 1000
+  filterLog(date: string, taskId?: string) {
+    // 目前hard code 前 3min 后 1s
+    const range = 3 * 60 * 1000
     const startDate = new Date(Date.parse(date) - range)
-    const endDate = new Date(Date.parse(date) + range)
+    const endDate = new Date(Date.parse(date) + 1000)
     this.queryForm.controls["startDate"].setValue(startDate)
     this.queryForm.controls["endDate"].setValue(endDate)
+    this.queryForm.controls["taskId"].setValue(taskId)
   }
 }
 

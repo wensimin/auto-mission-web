@@ -80,7 +80,7 @@
                 routerLink="/task/{{element['taskId']}}">
           <mat-icon>arrow_circle_right</mat-icon>
         </button>
-        <button matTooltip="查看周围的log" mat-mini-fab color="primary" (click)="filterLog(element['createDate'])">
+        <button matTooltip="查看周围的log" mat-mini-fab color="primary" (click)="filterLog(element['createDate'],element['taskId'])">
           <mat-icon>filter_alt</mat-icon>
         </button>
       </td>
