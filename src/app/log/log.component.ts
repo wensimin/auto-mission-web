@@ -90,6 +90,7 @@ export class LogComponent implements AfterViewInit {
    * @param taskId 任务id
    */
   filterLog(date: string, taskId?: string) {
+    this.queryForm.reset()
     // 目前hard code 前 3min 后 1s
     const range = 3 * 60 * 1000
     const startDate = new Date(Date.parse(date) - range)
