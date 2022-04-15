@@ -19,7 +19,7 @@ import {HasErrorMatcher} from "../task-info/task-info.component";
 export class LogComponent implements AfterViewInit {
 
   logs: TaskLog[] = []
-  displayedColumns: string[] = ['level', 'text', 'createDate', 'action'];
+  displayedColumns: string[] = ['level', 'text', 'createDate', 'task', 'action'];
   resultsLength: number = 0;
   queryEmitter = new EventEmitter()
   realTime = false
@@ -33,7 +33,8 @@ export class LogComponent implements AfterViewInit {
     endDate: [null],
     level: [''],
     text: [''],
-    taskId: ['']
+    taskId: [''],
+    taskName: ['']
   })
 
   dateRangeError = new HasErrorMatcher(['dateRange']);
@@ -106,6 +107,12 @@ interface TaskLog {
   level: String,
   text: String,
   taskId: String,
+  task: SimpleTask,
   id: String,
   createDate: String
+}
+
+interface SimpleTask {
+  id: String,
+  name: String
 }

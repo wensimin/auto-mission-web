@@ -18,10 +18,10 @@
     </button>
   </mat-form-field>
   <mat-form-field>
-    <input matInput formControlName="taskId" autocomplete="off" placeholder="输入要查询的任务ID">
+    <input matInput type="text" autocomplete="off" formControlName="taskName" placeholder="输入要查询的任务名">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
-            *ngIf="queryForm.controls['taskId'].value"
-            (click)="queryForm.controls['taskId'].setValue('')">
+            *ngIf="queryForm.controls['taskName'].value"
+            (click)="queryForm.controls['taskName'].setValue('')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -52,6 +52,13 @@
     </ngx-mat-datetime-picker>
     <mat-error *ngIf="queryForm.errors?.['dateRange']">起始时间必须大于截止时间</mat-error>
   </mat-form-field>
+  <mat-form-field *ngIf="queryForm.controls['taskId'].value">
+    <input matInput readonly formControlName="taskId" autocomplete="off" placeholder="任务ID">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+            (click)="queryForm.controls['taskId'].setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 </div>
 <mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
 <div class="table-container scroll-bar">
@@ -61,7 +68,10 @@
       <th mat-header-cell *matHeaderCellDef> 级别</th>
       <td mat-cell *matCellDef="let element"> {{element.level}} </td>
     </ng-container>
-
+    <ng-container matColumnDef="task">
+      <th mat-header-cell *matHeaderCellDef> 所属任务</th>
+      <td mat-cell *matCellDef="let element"> {{element['task']?.name}} </td>
+    </ng-container>
     <ng-container matColumnDef="text">
       <th mat-header-cell *matHeaderCellDef> 日志</th>
       <td mat-cell *matCellDef="let element"><p (dblclick)="showLog(element.text)">{{element.text}}</p></td>
@@ -80,7 +90,8 @@
                 routerLink="/task/{{element['taskId']}}">
           <mat-icon>arrow_circle_right</mat-icon>
         </button>
-        <button matTooltip="查看周围的log" mat-mini-fab color="primary" (click)="filterLog(element['createDate'],element['taskId'])">
+        <button matTooltip="查看周围的log" mat-mini-fab color="primary"
+                (click)="filterLog(element['createDate'],element['taskId'])">
           <mat-icon>filter_alt</mat-icon>
         </button>
       </td>

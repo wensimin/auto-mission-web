@@ -5,6 +5,12 @@
   text-align: center;
 }
 
+.mat-column-task {
+  width: 10%;
+  border-right: 1px solid currentColor;
+  text-align: center;
+}
+
 .mat-column-text {
   padding-left: 16px;
   padding-right: 16px;
@@ -23,12 +29,14 @@
   border-left: 1px solid currentColor;
   padding-left: 15px;
   width: 10%;
+  border-right: 1px solid currentColor;
   font-style: italic;
 }
 
 .mat-column-action {
   text-align: center;
   width: 10%;
+
   button {
     margin: 10px;
   }
