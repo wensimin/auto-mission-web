@@ -26,8 +26,8 @@
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="task">任务列表</mat-card>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="log">日志记录</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="task" (click)="sidenav.close()">任务列表</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="log" (click)="sidenav.close()">日志记录</mat-card>
   </mat-sidenav>
 
   <mat-toolbar color="primary">
