@@ -24,6 +24,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    this.logger.debug(`request ${request.url}`)
     return next.handle(request).pipe(
       catchError((response: HttpErrorResponse) => {
         let message = "未能连接到服务器"
