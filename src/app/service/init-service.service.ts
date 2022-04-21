@@ -15,8 +15,8 @@ export class InitServiceService {
     this.logger.debug(`初始化前token ${this.oauthService.getAccessToken()}`)
     let token: TokenResponse | void
     // 当ac token 无效且拥有rf token时刷新
-    this.logger.debug(`token有效:${this.isAccessTokenExpired()}, 过期时间:${this.oauthService.getAccessTokenExpiration()}`)
-    if (!this.isAccessTokenExpired() && this.oauthService.getRefreshToken()) {
+    this.logger.debug(`token过期:${this.isAccessTokenExpired()}, 过期时间:${this.oauthService.getAccessTokenExpiration()}`)
+    if (this.isAccessTokenExpired() && this.oauthService.getRefreshToken()) {
       this.logger.debug(`执行刷新token`)
       // 等待获取新token后再加载其他部分
       token = await this.oauthService.refreshToken().catch(async () => {
