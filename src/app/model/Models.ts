@@ -12,3 +12,8 @@ export class Task {
   createDate: String | null = null
   updateDate: String | null = null
 }
+
+export class Store {
+  key: String | null = null
+  value: String | null = null
+}

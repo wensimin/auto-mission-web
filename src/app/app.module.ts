@@ -52,54 +52,58 @@ import localeCn from '@angular/common/locales/zh';
 import {registerLocaleData} from "@angular/common";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatRippleModule} from "@angular/material/core";
+import {StoreComponent} from './store/store.component';
+import { EditStoreDialogComponent } from './store/edit-store-dialog/edit-store-dialog.component';
+
 registerLocaleData(localeCn);
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot([
-            {path: '', redirectTo: '/task', pathMatch: 'full'},
-            {path: "task", component: TaskComponent},
-            {path: "task/new", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
-            {path: "task/:id", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
-            {path: "log", component: LogComponent},
-            {path: '**', component: PageNotFoundComponent}
-        ]),
-        AuthModule.forRoot(),
-        MonacoEditorModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatCardModule,
-        MatListModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        ReactiveFormsModule,
-        MatSnackBarModule,
-        MatSelectModule,
-        ClipboardModule,
-        FormsModule,
-        MatRadioModule,
-        MatSlideToggleModule,
-        MatDialogModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        NgxMatDatetimePickerModule,
-        NgxMatTimepickerModule,
-        NgxMatNativeDateModule,
-        LoggerModule.forRoot({
-            level: NgxLoggerLevel.DEBUG,
-            serverLogLevel: NgxLoggerLevel.DEBUG
-        }),
-        MatTooltipModule,
-        MatRippleModule,
-    ],
+  imports: [
+    RouterModule.forRoot([
+      {path: '', redirectTo: '/task', pathMatch: 'full'},
+      {path: "task", component: TaskComponent},
+      {path: "task/new", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
+      {path: "task/:id", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
+      {path: "log", component: LogComponent},
+      {path: "store", component: StoreComponent},
+      {path: '**', component: PageNotFoundComponent}
+    ]),
+    AuthModule.forRoot(),
+    MonacoEditorModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    ClipboardModule,
+    FormsModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.DEBUG
+    }),
+    MatTooltipModule,
+    MatRippleModule,
+  ],
   declarations: [
     AppComponent,
     TaskComponent,
@@ -109,7 +113,9 @@ registerLocaleData(localeCn);
     TaskInfoComponent,
     DebugCodeDialogComponent,
     ConfirmDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    StoreComponent,
+    EditStoreDialogComponent
   ],
   providers: [
     // 编辑器用

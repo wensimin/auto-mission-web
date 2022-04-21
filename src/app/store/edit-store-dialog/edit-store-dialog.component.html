@@ -1,0 +1,16 @@
+<form [formGroup]="storeForm">
+  <mat-form-field appearance="outline">
+    <mat-label>key</mat-label>
+    <input matInput formControlName="key" autocomplete="off" required maxlength="255" [readonly]="!isNew">
+    <mat-error *ngIf="f['key'].errors?.['required']">key不能为空</mat-error>
+    <mat-error *ngIf="f['key'].errors?.['maxlength']">最大长度限制为255</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>value</mat-label>
+    <textarea class="scroll-bar" matInput formControlName="value"></textarea>
+  </mat-form-field>
+</form>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">取消</button>
+  <button mat-button (click)="saveStore()">确认</button>
+</mat-dialog-actions>

@@ -84,7 +84,7 @@ export class PageServiceService {
     let pageParam = {
       "page.size": paginator.pageSize,
       "page.number": paginator.pageIndex,
-      "page.direction": `${sort.active} ${sort.direction}`
+      "page.direction": sort.active ? `${sort.active} ${sort.direction}` : ''
     }
     // 合并普通参数和page参数
     return value ? Object.assign(pageParam, this.toParam(value)) : pageParam
