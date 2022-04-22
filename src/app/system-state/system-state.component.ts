@@ -1,6 +1,7 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-system-state',
@@ -14,21 +15,24 @@ export class SystemStateComponent implements AfterViewInit {
   memoryProgress: number = 0;
   taskBuffer: number = 0;
   memoryBuffer: number = 0;
+  private timeInterval: Subscription | undefined;
+  private emitter = new EventEmitter()
 
   constructor(private httpClient: HttpClient) {
   }
 
   ngAfterViewInit(): void {
-    this.httpClient.get<SystemState>(`${environment.resourceServer}/state`).subscribe(
-      state => {
-        this.state = state
-        this.taskProgress = (100 * state.runningTaskCount) / state.taskMaxWorker;
-        this.taskBuffer = (100 * state.taskWorker) / state.taskMaxWorker;
-        this.memoryProgress = (100 * state.memoryUsage) / state.maxMemory;
-        this.memoryBuffer = (100 * state.totalMemory) / state.maxMemory;
+    this.getState()
+    this.emitter.subscribe(() => {
+      this.getState()
+    })
+    this.timeInterval = interval(1000).subscribe(() => {
+      this.emitter.emit()
+    })
+  }
 
-      }
-    )
+  ngOnDestroy(): void {
+    this.timeInterval?.unsubscribe()
   }
 
   formatBytes(bytes: number, decimals = 2) {
@@ -41,6 +45,18 @@ export class SystemStateComponent implements AfterViewInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  private getState() {
+    this.httpClient.get<SystemState>(`${environment.resourceServer}/state`).subscribe(
+      state => {
+        this.state = state
+        this.taskProgress = (100 * state.runningTaskCount) / state.taskMaxWorker;
+        this.taskBuffer = (100 * state.taskWorker) / state.taskMaxWorker;
+        this.memoryProgress = (100 * state.memoryUsage) / state.maxMemory;
+        this.memoryBuffer = (100 * state.totalMemory) / state.maxMemory;
+      }
+    )
   }
 }
 
