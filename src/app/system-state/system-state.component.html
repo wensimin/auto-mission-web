@@ -1,0 +1,10 @@
+<div>
+  <H1>task workers {{state.runningTaskCount}}/{{state.taskMaxWorker}}</H1>
+  <mat-progress-bar mode="buffer" color="accent" [value]="taskProgress" [bufferValue]="taskBuffer"></mat-progress-bar>
+  <H1>memory usage {{formatBytes(state.memoryUsage)}}/{{formatBytes(state.totalMemory)}}
+    /{{formatBytes(state.maxMemory)}}</H1>
+  <mat-progress-bar mode="buffer" color="accent" [value]="memoryProgress"
+                    [bufferValue]="memoryBuffer"></mat-progress-bar>
+  <H1>all thread count {{state.threadCount}}</H1>
+</div>
+

@@ -53,7 +53,8 @@ import {registerLocaleData} from "@angular/common";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatRippleModule} from "@angular/material/core";
 import {StoreComponent} from './store/store.component';
-import { EditStoreDialogComponent } from './store/edit-store-dialog/edit-store-dialog.component';
+import {EditStoreDialogComponent} from './store/edit-store-dialog/edit-store-dialog.component';
+import {SystemStateComponent} from './system-state/system-state.component';
 
 registerLocaleData(localeCn);
 
@@ -66,6 +67,7 @@ registerLocaleData(localeCn);
       {path: "task/:id", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
       {path: "log", component: LogComponent},
       {path: "store", component: StoreComponent},
+      {path: "state", component: SystemStateComponent},
       {path: '**', component: PageNotFoundComponent}
     ]),
     AuthModule.forRoot(),
@@ -115,7 +117,8 @@ registerLocaleData(localeCn);
     ConfirmDialogComponent,
     MessageDialogComponent,
     StoreComponent,
-    EditStoreDialogComponent
+    EditStoreDialogComponent,
+    SystemStateComponent
   ],
   providers: [
     // 编辑器用
