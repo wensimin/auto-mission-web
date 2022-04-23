@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder} from "@angular/forms";
@@ -28,6 +28,7 @@ export class LogComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild("logTable") table!: ElementRef
   queryForm = this.fb.group({
     startDate: [null],
     endDate: [null],
@@ -78,6 +79,7 @@ export class LogComponent implements AfterViewInit {
       .subscribe(page => {
         this.resultsLength = page.totalElements
         this.logs = page.content
+        this.table.nativeElement.scrollTop = 0
       })
 
     this.timeInterval = interval(1000).subscribe(() => {

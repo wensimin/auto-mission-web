@@ -61,7 +61,7 @@
   </mat-form-field>
 </div>
 <mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
-<div class="table-container scroll-bar">
+<div #logTable class="table-container scroll-bar">
   <table mat-table [dataSource]="logs" class="mat-elevation-z8"
          matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
     <ng-container matColumnDef="level">

@@ -27,15 +27,15 @@ table {
   overflow: auto;
 }
 
-.scroll-bar{
-  overflow-y:scroll;
+.scroll-bar {
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.scroll-bar::-webkit-scrollbar{
+.scroll-bar::-webkit-scrollbar {
   width: 5px;
 }
 
-.scroll-bar::-webkit-scrollbar-thumb{
+.scroll-bar::-webkit-scrollbar-thumb {
   background: mat.get-color-from-palette($primary);
 }
