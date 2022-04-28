@@ -2,7 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {FormControl} from "@angular/forms";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, interval, Subscription} from "rxjs";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
@@ -14,8 +14,9 @@ import {MessageDialogComponent} from "../message-dialog/message-dialog.component
 })
 export class TaskInstanceComponent implements AfterViewInit {
   instances: TaskInstance[] = [];
-  displayedColumns: string[] = ['name', 'createDate', 'schedule', 'state', 'action'];
+  displayedColumns: string[] = ['name', 'createDate', 'schedule', 'delayMessage', 'state', 'action'];
   done: FormControl = new FormControl(false);
+  private timeInterval: Subscription | undefined;
 
   constructor(
     private httpClient: HttpClient,
@@ -28,6 +29,13 @@ export class TaskInstanceComponent implements AfterViewInit {
     this.done.valueChanges.subscribe(() => {
       this.getData()
     })
+    this.timeInterval = interval(2000).subscribe(() => {
+      this.getData()
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.timeInterval?.unsubscribe()
   }
 
   private getData() {
@@ -74,5 +82,6 @@ class TaskInstance {
   done: Boolean | null = null
   createDate: String | null = null
   schedule: Boolean | null = null
+  delayMessage: String | null = null
 }
 
