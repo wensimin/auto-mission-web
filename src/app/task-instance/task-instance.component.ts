@@ -53,6 +53,18 @@ export class TaskInstanceComponent implements AfterViewInit {
   showCode(instance: TaskInstance) {
     this.dialog.open(MessageDialogComponent, {data: instance.code})
   }
+
+  async clearTask() {
+    let confirm = await firstValueFrom(this.dialog.open(ConfirmDialogComponent, {
+      data: `确认清除所有已完成任务实例吗?`
+    }).afterClosed()).then()
+    if (!confirm) return
+    this.httpClient.delete(`${environment.resourceServer}/task/instance`, {})
+      .subscribe(() => {
+        this.getData()
+      })
+  }
+
 }
 
 class TaskInstance {
