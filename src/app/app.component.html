@@ -26,15 +26,15 @@
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="task" (click)="sidenav.close()">任务列表</mat-card>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="taskInstance" (click)="sidenav.close()">任务实例</mat-card>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="log" (click)="sidenav.close()">日志记录</mat-card>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="store" (click)="sidenav.close()">持久变量</mat-card>
-    <mat-card matRipple class="mat-list-item clickable" routerLink="state" (click)="sidenav.close()">系统监控</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="task" (click)="closeNav()">任务列表</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="taskInstance" (click)="closeNav()">任务实例</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="log" (click)="closeNav()">日志记录</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="store" (click)="closeNav()">持久变量</mat-card>
+    <mat-card matRipple class="mat-list-item clickable" routerLink="state" (click)="closeNav()">系统监控</mat-card>
   </mat-sidenav>
 
   <mat-toolbar color="primary">
-    <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
+    <button mat-button class="app-menu-button"  #menu (click)="sidenav.toggle()">
       <i class="material-icons">menu</i>
     </button>
     <span class="title">自动任务管理</span>
