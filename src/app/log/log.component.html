@@ -3,10 +3,10 @@
     <mat-label>级别</mat-label>
     <mat-select formControlName="level">
       <mat-option>全部</mat-option>
-      <mat-option value="ERROR">ERROR</mat-option>
-      <mat-option value="WARN">WARN</mat-option>
-      <mat-option value="INFO">INFO</mat-option>
-      <mat-option value="DEBUG">DEBUG</mat-option>
+      <mat-option [value]="'ERROR'">ERROR</mat-option>
+      <mat-option [value]="'WARN'">WARN</mat-option>
+      <mat-option [value]="'INFO'">INFO</mat-option>
+      <mat-option [value]="'DEBUG'">DEBUG</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>

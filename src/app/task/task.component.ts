@@ -70,5 +70,20 @@ export class TaskComponent implements AfterViewInit {
       )
   }
 
+  /**
+   * 启动一次性任务
+   * @param task
+   */
+  async launchTask(task: Task) {
+    let confirm = await firstValueFrom(this.dialog.open(ConfirmDialogComponent, {
+      data: `确认把 ${task.name} 执行一次吗?`
+    }).afterClosed()).then()
+    if (!confirm) return
+    this.httpClient.post(`${environment.resourceServer}/task/single/${task.id}`, {},)
+      .pipe(this.loadingService.setLoading())
+      .subscribe(() => {
+        this.snackBarServiceService.message({type: "success", message: `执行单次任务成功`})
+      })
+  }
 }
 

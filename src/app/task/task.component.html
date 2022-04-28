@@ -19,8 +19,8 @@
     <mat-label>状态</mat-label>
     <mat-select formControlName="enabled">
       <mat-option>全部</mat-option>
-      <mat-option value="false">停止</mat-option>
-      <mat-option value="true">运行</mat-option>
+      <mat-option [value]="false">停止</mat-option>
+      <mat-option [value]="true">运行</mat-option>
     </mat-select>
   </mat-form-field>
   <button mat-raised-button color="accent" class="new-task-button" routerLink="/task/new">新建任务</button>
@@ -55,13 +55,16 @@
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-mini-fab matTooltip="查看日志" color="primary" routerLink="/log" [queryParams]="{taskId:element.id}">
-          <mat-icon>link</mat-icon>
+          <mat-icon>content_paste</mat-icon>
         </button>
         <button *ngIf="element.enabled" matTooltip="停止" mat-mini-fab color="warn" (click)="switchTask(element)">
           <mat-icon>stop</mat-icon>
         </button>
         <button *ngIf="!element.enabled" matTooltip="启动" mat-mini-fab color="accent" (click)="switchTask(element)">
           <mat-icon>play_circle_outline</mat-icon>
+        </button>
+        <button matTooltip="运行一次性任务" mat-mini-fab color="accent" (click)="launchTask(element)">
+          <mat-icon>bolt</mat-icon>
         </button>
       </td>
     </ng-container>

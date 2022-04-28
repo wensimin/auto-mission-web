@@ -55,6 +55,7 @@ import {MatRippleModule} from "@angular/material/core";
 import {StoreComponent} from './store/store.component';
 import {EditStoreDialogComponent} from './store/edit-store-dialog/edit-store-dialog.component';
 import {SystemStateComponent} from './system-state/system-state.component';
+import {TaskInstanceComponent} from './task-instance/task-instance.component';
 
 registerLocaleData(localeCn);
 
@@ -65,6 +66,7 @@ registerLocaleData(localeCn);
       {path: "task", component: TaskComponent},
       {path: "task/new", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
       {path: "task/:id", component: TaskInfoComponent, canDeactivate: [TaskEditGuard]},
+      {path: "taskInstance", component: TaskInstanceComponent},
       {path: "log", component: LogComponent},
       {path: "store", component: StoreComponent},
       {path: "state", component: SystemStateComponent},
@@ -118,7 +120,8 @@ registerLocaleData(localeCn);
     MessageDialogComponent,
     StoreComponent,
     EditStoreDialogComponent,
-    SystemStateComponent
+    SystemStateComponent,
+    TaskInstanceComponent
   ],
   providers: [
     // 编辑器用
