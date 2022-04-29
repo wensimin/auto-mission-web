@@ -54,7 +54,7 @@
         <button mat-mini-fab matTooltip="编辑" color="primary" routerLink="/task/{{element.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab matTooltip="查看日志" color="primary" routerLink="/log" [queryParams]="{taskId:element.id}">
+        <button mat-mini-fab matTooltip="查看日志" color="primary" routerLink="/log" [state]="{taskId:element.id}">
           <mat-icon>content_paste</mat-icon>
         </button>
         <button *ngIf="element.enabled" matTooltip="停止" mat-mini-fab color="warn" (click)="switchTask(element)">

@@ -4,7 +4,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {FormBuilder} from "@angular/forms";
 import {PageServiceService} from "../service/page-service.service";
 import {interval, Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageDialogComponent} from "../message-dialog/message-dialog.component";
 import {NGXLogger} from "ngx-logger";
@@ -45,13 +45,11 @@ export class LogComponent implements AfterViewInit {
     private fb: FormBuilder,
     private pageService: PageServiceService,
     private dialog: MatDialog,
-    private route: ActivatedRoute,
+    private router: Router,
     private logger: NGXLogger
   ) {
-    this.route.queryParams.subscribe(value => {
-      let id = value["taskId"]
-      if (id) this.queryForm.controls["taskId"].setValue(id)
-    })
+    const taskId = this.router.getCurrentNavigation()?.extras.state?.['taskId']
+    if (taskId) this.queryForm.controls["taskId"].setValue(taskId)
     this.queryForm.addValidators(control => {
       const startDate = control.get("startDate")?.value;
       const endDate = control.get("endDate")?.value;
