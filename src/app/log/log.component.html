@@ -1,4 +1,4 @@
-<div class="form" [formGroup]="queryForm">
+<div class="query-form" [formGroup]="queryForm">
   <mat-form-field>
     <mat-label>级别</mat-label>
     <mat-select formControlName="level">
@@ -59,8 +59,9 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <mat-slide-toggle class="right-button" [ngModelOptions]="{standalone: true}" [(ngModel)]="realTime">实时日志
+  </mat-slide-toggle>
 </div>
-<mat-slide-toggle [(ngModel)]="realTime">实时日志</mat-slide-toggle>
 <div #logTable class="table-container scroll-bar">
   <table mat-table [dataSource]="logs" class="mat-elevation-z8"
          matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">

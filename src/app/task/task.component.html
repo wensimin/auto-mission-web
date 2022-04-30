@@ -1,4 +1,4 @@
-<div class="form" [formGroup]="queryForm">
+<div class="query-form" [formGroup]="queryForm">
   <mat-form-field>
     <input matInput formControlName="name" autocomplete="off" placeholder="输入要查询的名字">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
@@ -23,7 +23,7 @@
       <mat-option [value]="true">运行</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="accent" class="new-task-button" routerLink="/task/new">新建任务</button>
+  <button mat-raised-button color="accent" class="right-button" routerLink="/task/new">新建任务</button>
 </div>
 <div class="table-container scroll-bar">
   <table mat-table [dataSource]="tasks" class="mat-elevation-z8"

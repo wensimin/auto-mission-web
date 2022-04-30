@@ -1,4 +1,4 @@
-<div class="form" [formGroup]="queryForm">
+<div class="query-form" [formGroup]="queryForm">
   <mat-form-field>
     <input matInput formControlName="key" autocomplete="off" placeholder="key">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"
@@ -7,7 +7,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-raised-button color="accent" class="new-store-button" (click)="openEdit()">新增数值</button>
+  <button mat-raised-button color="accent" class="right-button" (click)="openEdit()">新增数值</button>
 
 </div>
 <div class="table-container scroll-bar">

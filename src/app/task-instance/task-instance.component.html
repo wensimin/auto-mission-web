@@ -1,4 +1,4 @@
-<div>
+<div class="query-form">
   <mat-form-field>
     <mat-label>状态</mat-label>
     <mat-select [formControl]="done">
@@ -7,7 +7,7 @@
       <mat-option [value]="true">已完成</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="warn" class="clear-button" (click)="clearTask()">清理已完成任务</button>
+  <button mat-raised-button color="warn" class="right-button" (click)="clearTask()">清理已完成任务</button>
 
 </div>
 <div class="table-container scroll-bar">

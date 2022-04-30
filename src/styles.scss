@@ -27,6 +27,21 @@ table {
   overflow: auto;
 }
 
+.query-form {
+  mat-form-field {
+    padding: 5px;
+  }
+
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+
+  .right-button {
+    margin-left: auto;
+    margin-right: 5px;
+  }
+}
+
 .scroll-bar {
   overflow-y: scroll;
   overflow-x: hidden;
