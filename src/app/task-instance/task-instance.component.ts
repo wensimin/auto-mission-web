@@ -29,7 +29,7 @@ export class TaskInstanceComponent implements AfterViewInit {
     this.done.valueChanges.subscribe(() => {
       this.getData()
     })
-    this.timeInterval = interval(2000).subscribe(() => {
+    this.timeInterval = interval(1000).subscribe(() => {
       this.getData()
     })
   }
