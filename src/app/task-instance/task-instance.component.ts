@@ -83,5 +83,6 @@ class TaskInstance {
   createDate: String | null = null
   schedule: Boolean | null = null
   delayMessage: String | null = null
+  running: Boolean | null = null
 }
 

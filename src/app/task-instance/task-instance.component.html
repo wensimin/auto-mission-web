@@ -31,7 +31,7 @@
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef> 状态</th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon color="{{element.done ? 'warn' : 'accent'}}">lens</mat-icon>
+        <mat-icon color="{{element.done ? 'warn' : element['running']?'accent':'pending'}}">lens</mat-icon>
       </td>
     </ng-container>
     <ng-container matColumnDef="action">

@@ -56,3 +56,8 @@ table {
 .scroll-bar::-webkit-scrollbar-thumb {
   background: mat.get-color-from-palette($primary);
 }
+
+.mat-pending {
+  color: yellow !important;
+  background-color: mat.get-color-from-palette($background) !important;
+}
