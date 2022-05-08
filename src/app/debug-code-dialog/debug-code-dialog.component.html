@@ -1,14 +1,13 @@
-
 <div class="debug-dialog">
   <h1>console:</h1>
-  <mat-progress-bar mode="indeterminate" *ngIf="!data.end"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="!isOver"></mat-progress-bar>
   <mat-dialog-content class="mat-typography scroll-bar">
-    <p>{{data.consoleText}}</p>
+    <p>{{log}}</p>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button *ngIf="!data.end" (click)="stop()">中止任务</button>
-    <button mat-button *ngIf="data.end" [mat-dialog-close]="true">关闭</button>
+    <button mat-button *ngIf="!isOver" (click)="stop()">中止任务</button>
+    <button mat-button *ngIf="isOver" [mat-dialog-close]="true">关闭</button>
   </mat-dialog-actions>
 
 </div>

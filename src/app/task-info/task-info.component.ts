@@ -5,14 +5,15 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  FormGroupDirective, NgForm,
+  FormGroupDirective,
+  NgForm,
   ValidationErrors,
   Validators
 } from "@angular/forms";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Task} from "../model/Models";
 import {environment} from "../../environments/environment";
-import {catchError, of, throwError} from "rxjs";
+import {catchError, of} from "rxjs";
 import {SnackBarServiceService} from "../service/snack-bar-service.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DebugCodeDialogComponent} from "../debug-code-dialog/debug-code-dialog.component";
@@ -20,7 +21,6 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 import {ErrorStateMatcher} from "@angular/material/core";
 import {LoadingService} from "../service/loading.service";
 import * as lodash from 'lodash';
-import {ErrorType} from "../service/http-error-interceptor";
 
 @Component({
   selector: 'app-task-info',
@@ -51,8 +51,8 @@ export class TaskInfoComponent implements AfterViewInit {
     this.setValidators()
     // 修改了 数据dirty化
     this.taskForm.valueChanges.subscribe(() => {
-      //TODO 目前new task 初始化似乎 eq false ,良性bug暂时先放
-      this.isEdited = !lodash.isEqual(this.clearTask, this.taskForm.value)
+        //TODO 目前new task 初始化似乎 eq false ,良性bug暂时先放
+        this.isEdited = !lodash.isEqual(this.clearTask, this.taskForm.value)
       }
     )
     this.activatedRoute.params.subscribe(params => {
@@ -95,20 +95,15 @@ export class TaskInfoComponent implements AfterViewInit {
   }
 
   debugCode() {
-    this.httpClient.post(`${environment.resourceServer}/debug`, {"code": this.taskForm.value.code})
+    this.httpClient.get(`${environment.resourceServer}/debug/ws/token`, {responseType: "text"},)
       .pipe(
-        this.loadingService.setLoading(),
-        catchError((response: HttpErrorResponse) => {
-          if (response.error["error"] == ErrorType.DEBUG_LIMIT) {
-            this.snackBarServiceService.message({type: "error", message: "超出后端允许debug的任务限制,请稍后再试"})
-          }
-          return throwError(() => response);
-        }))
-      .subscribe(res => {
+        this.loadingService.setLoading()
+      ).subscribe(token => {
         this.dialog.open(DebugCodeDialogComponent, {
-          data: res
+          data: {"token": token, "code": this.taskForm.value.code}
         })
-      })
+      }
+    )
   }
 
   private loadTask(id: String) {

@@ -15,7 +15,7 @@ import {MessageDialogComponent} from "../message-dialog/message-dialog.component
 export class TaskInstanceComponent implements AfterViewInit {
   instances: TaskInstance[] = [];
   displayedColumns: string[] = ['name', 'createDate', 'schedule', 'delayMessage', 'state', 'action'];
-  done: FormControl = new FormControl(false);
+  done: FormControl = new FormControl(null);
   private timeInterval: Subscription | undefined;
 
   constructor(
