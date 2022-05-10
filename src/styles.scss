@@ -20,10 +20,10 @@ table {
   background: mat.get-color-from-palette($background, app-bar) !important;
 }
 
-// table 滚动条
+// table 容器
 .table-container {
   position: relative;
-  max-height: 600px;
+  max-height: 75vh;
   overflow: auto;
 }
 

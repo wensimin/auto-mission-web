@@ -7,5 +7,5 @@ mat-progress-bar {
 }
 
 .debug-dialog {
-  width: 800px;
+  min-width: 60vw;
 }
